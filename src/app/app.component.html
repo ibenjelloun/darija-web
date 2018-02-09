@@ -1,0 +1,12 @@
+<dar-authentification></dar-authentification>
+
+<ng-container *ngIf="(user$ | async)">
+  <ng-container *ngFor="let word of (words$ | async)">
+    {{word | json}}
+  </ng-container>
+
+  <br/>
+
+  {{ (test | async) | json }}
+
+</ng-container>
