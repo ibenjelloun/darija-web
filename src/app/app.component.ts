@@ -5,16 +5,10 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { AuthService } from './core/services/auth.service';
 import { User } from '@firebase/auth-types';
-
-
-interface Word {
-  id: string;
-  fr: string;
-  ma: string;
-}
+import { Word } from './word/model/word';
 
 @Component({
-  selector: 'app-root',
+  selector: 'dar-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -23,15 +17,10 @@ export class AppComponent {
   wordsCollection: AngularFirestoreCollection<Word>;
   words$: Observable<Word[]>;
   user$: Observable<User>;
-  test;
 
   constructor(private afs: AngularFirestore, private afdb: AngularFireDatabase,
     private _authService: AuthService) {
     this.user$ = this._authService.getUser();
-
-    this.wordsCollection = this.afs.collection('words');
-    this.words$ = this.wordsCollection.valueChanges();
-
-    this.test = this.afdb.list('words').valueChanges();
+    this.words$ = this.afdb.list<Word>('words', ref => ref.limitToLast(10)).valueChanges();
   }
 }
