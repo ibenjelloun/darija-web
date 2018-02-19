@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../core/services/auth.service';
 import { User } from '@firebase/auth-types';
 import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'dar-authentification',
+  selector: 'dar-authentication',
   template: `
               <ng-container *ngIf="!(user$ | async)">
                 <button (click)="loginWithGoogle()">
@@ -18,16 +19,16 @@ import { Observable } from 'rxjs/Observable';
               </ng-container>
             `
 })
-export class AuthentificationComponent {
+export class AuthenticationComponent {
 
   user$: Observable<User>;
 
-  constructor(private _authService: AuthService) {
+  constructor(private _authService: AuthService, private _router: Router) {
     this.user$ = this._authService.getUser();
   }
 
   loginWithGoogle() {
-    this._authService.loginWithGoogle();
+    this._authService.loginWithGoogle().then(_ => this._router.navigate(['/words']));
   }
 
   logout() {

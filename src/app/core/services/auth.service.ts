@@ -17,7 +17,7 @@ export class AuthService {
     return this.user;
   }
 
-  loginWithGoogle() {
+  loginWithGoogle(): Promise<any> {
     return this.firebaseAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 

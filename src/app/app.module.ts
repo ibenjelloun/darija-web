@@ -13,6 +13,9 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { AppRoutingModule } from './app-routing.module';
+import { WordsModule } from './words/words.module';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -28,9 +31,12 @@ export const firebaseConfig = environment.firebaseConfig;
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireDatabaseModule,
     CoreModule,
     SharedModule,
-    AngularFireDatabaseModule
+    AuthenticationModule,
+    AppRoutingModule,
+    WordsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
