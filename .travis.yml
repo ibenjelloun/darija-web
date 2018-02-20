@@ -7,15 +7,14 @@ branches:
     - master
 
 before_script:
+  - npm install -g firebase-tools
   - npm install -g @angular/cli
 
 script:
   - ng build --prod
 
-deploy:
-  provider: firebase
-  token:
-    secure: "Sarv9O7gE7jm2PgwcfyeZB17ngc9gWdLk4jH7x2TGvzsbKkWfHVc8Yoq7mZFUoq9cYgjXY+THH8Rs090dwZTIUr90PHecszFD/Avdn4iIwMowjeWWlo0YlTJ9F4QoS0HbiwrWKhKDoVLM2TK8uxC6gLdsZr9C6YJfHeg9xXeMOJLS0o9CUiJs8Bbjosed/JWOADA9ScTUyiGmCJgeEA4t1RqsZMUjr+UVH6d474TovP7l1XbkS7bMAQnm1JL7GkS1h3KO0UcGpWAdn22idtylSpDwS3hs4mfUDIgrBDuVRSljwOBalNGGru6TPETjRdaUdvjih1CboBSKU6yS7KUvSgI55viQcRMxiwWVfdM2zTq7PXqs+Pg5TUuDYLXCOx7fWtPyW44mOFVvvhAoV1qLC5I5VER5e6oiLUEdJ1y+ZKCO7pnio/lQ8a2IKE2DdSOyBopsbd0+MubCaMiBhgnwYnJIL43i3YlnCL7hGhgtQfnKr7kVyBmErHjU9E1P30+jB+uNjVJw37R2O24/vUvz1mQHveiUwKVN6R2KEMbsNtYAvDlg5+RQxe8RHbQVjJRx7SxOGPGCY2T05QeqtivJhxQDR/3mwOp1ch7HKvQ1aeBnQraWxkgYMMhlCl4dq6MjPE1QgTDYyeZD/RYexmEWrsH1JgrPrSBkFz/fpX1PCg="
+after_succes:
+  - firebase deploy --token "$FIREBASE_TOKEN"
 
 notifications:
   email:
