@@ -1,3 +1,12 @@
-<ng-container>
-  {{ (words$ | async) | json }}
-</ng-container>
+<div class="container">
+  <mat-form-field>
+    <input matInput placeholder="Recherche..." [formControl]="searchField">
+  </mat-form-field>
+
+  <dar-words-list [words$]="words$"></dar-words-list>
+</div>
+<span class="add">
+  <button mat-fab>
+    <mat-icon>add</mat-icon>
+  </button>
+</span>

@@ -1,0 +1,19 @@
+<div class="mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource">
+
+    <!-- Fr Column -->
+    <ng-container matColumnDef="french">
+      <mat-header-cell *matHeaderCellDef> Français </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.french}} </mat-cell>
+    </ng-container>
+
+    <!-- Ma Column -->
+    <ng-container matColumnDef="darija">
+      <mat-header-cell *matHeaderCellDef> Darija </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.darija}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
