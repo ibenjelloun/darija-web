@@ -27,9 +27,15 @@
     "@ngtools/json-schema" "^1.1.0"
     rxjs "^5.5.6"
 
-"@angular/animations@^5.2.0":
-  version "5.2.4"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-5.2.4.tgz#c5ec749d84a0434733a28a82c6cb6a4e15246201"
+"@angular/animations@^5.2.5":
+  version "5.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-5.2.5.tgz#3e72184321c4979305619c74902b8be92d76db70"
+  dependencies:
+    tslib "^1.7.1"
+
+"@angular/cdk@angular/cdk-builds":
+  version "6.0.0-beta.1-1e2b79a"
+  resolved "https://codeload.github.com/angular/cdk-builds/tar.gz/449639ca75bbbca1ed80950ee1a03781ea18865e"
   dependencies:
     tslib "^1.7.1"
 
@@ -138,6 +144,12 @@
 "@angular/language-service@^5.2.0":
   version "5.2.4"
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-5.2.4.tgz#281631793671844ae8f6f9c0ec80b91d064db2d8"
+
+"@angular/material@angular/material2-builds":
+  version "6.0.0-beta.1-1e2b79a"
+  resolved "https://codeload.github.com/angular/material2-builds/tar.gz/c92127de0d46b9cd62a110dd0f5a3283d7aa6d45"
+  dependencies:
+    tslib "^1.7.1"
 
 "@angular/platform-browser-dynamic@^5.2.0":
   version "5.2.4"
@@ -3003,6 +3015,10 @@ grpc@^1.7.1:
     nan "^2.0.0"
     node-pre-gyp "^0.6.39"
     protobufjs "^5.0.0"
+
+hammerjs@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
 
 handle-thing@^1.2.5:
   version "1.2.5"

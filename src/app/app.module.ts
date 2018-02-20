@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -16,18 +15,19 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { AppRoutingModule } from './app-routing.module';
 import { WordsModule } from './words/words.module';
+import { MaterialModule } from './material/material.module';
+import { LayoutModule } from './layout/layout.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     CommonModule,
-    BrowserModule,
     FormsModule,
     HttpModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -36,9 +36,11 @@ export const firebaseConfig = environment.firebaseConfig;
     SharedModule,
     AuthenticationModule,
     AppRoutingModule,
+    MaterialModule,
+    LayoutModule,
     WordsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -6,18 +6,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'dar-authentication',
-  template: `
-              <ng-container *ngIf="!(user$ | async)">
-                <button (click)="loginWithGoogle()">
-                  Login
-                </button>
-              </ng-container>
-              <ng-container *ngIf="(user$ | async)">
-                <button (click)="logout()">
-                  Logout
-                </button>
-              </ng-container>
-            `
+  templateUrl: 'authentication.component.html',
+  styleUrls: ['authentication.component.css']
 })
 export class AuthenticationComponent {
 
