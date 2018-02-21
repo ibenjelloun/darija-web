@@ -3,6 +3,7 @@ import { User } from '@firebase/auth-types';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../core/services/auth.service';
 import { Router } from '@angular/router';
+import { first } from 'rxjs/operators/first';
 
 @Component({
   selector: 'dar-authentication',
@@ -11,10 +12,14 @@ import { Router } from '@angular/router';
 })
 export class AuthenticationComponent {
 
-  user$: Observable<User>;
-
   constructor(private _authService: AuthService, private _router: Router) {
-    this.user$ = this._authService.getUser();
+   this._authService.getUser()
+   .pipe(first())
+   .subscribe(user => {
+     if (user) {
+       this._router.navigate(['/words']);
+     }
+   });
   }
 
   loginWithGoogle() {

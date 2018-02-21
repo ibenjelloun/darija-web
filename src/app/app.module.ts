@@ -30,6 +30,7 @@ export const firebaseConfig = environment.firebaseConfig;
     HttpModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
