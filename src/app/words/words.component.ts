@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Word } from './model/word';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs/Subject';
+import { WordsService } from './services/words.service';
 
 @Component({
   selector: 'dar-words',
@@ -16,11 +16,11 @@ export class WordsComponent {
   wordsSubject$ = new Subject<string>();
   searchField: FormControl;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(private _wordsService: WordsService) {
     this.searchField = new FormControl('');
-    this.words$ = this.wordsSubject$.switchMap(search =>
-      this.afs.collection<Word>('words', ref => ref.where('french', '==' , search)).valueChanges()
-    );
+    const dsh = this._wordsService.getDynamicSearchHandler();
+    this.words$ = dsh.words$;
+    this.wordsSubject$ = dsh.fireSubject$;
     this.searchField.valueChanges.subscribe(() =>
       this.wordsSubject$.next(this.searchField.value)
     );

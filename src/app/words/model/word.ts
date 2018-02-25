@@ -1,6 +1,6 @@
 
 export class Word {
-    id: number;
+    id: string;
     darija: string;
     french: string;
     relevance: number;
