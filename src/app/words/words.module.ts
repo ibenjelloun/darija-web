@@ -6,10 +6,11 @@ import { MaterialModule } from '../material/material.module';
 import { WordsListComponent } from './words-list/words-list.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { WordsService } from './services/words.service';
+import { WordEditorComponent } from './word-editor/word-editor.component';
 
 @NgModule({
   imports: [CommonModule, MaterialModule, WordsRoutingModule, FormsModule, ReactiveFormsModule],
-  declarations: [WordsComponent, WordsListComponent],
+  declarations: [WordsComponent, WordsListComponent, WordEditorComponent],
   exports: [WordsComponent],
   providers: [WordsService]
 })

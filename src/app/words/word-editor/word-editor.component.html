@@ -1,0 +1,23 @@
+<div *ngIf="loading" class="spinner-container">
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="!loading" class="container" [formGroup]="wordForm">
+  <mat-card>
+    <mat-form-field>
+      <input matInput formControlName="french" placeholder="français">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="darija" placeholder="darija">
+    </mat-form-field>
+    <mat-select formControlName="type" placeholder="type">
+      <mat-option *ngFor="let type of wordTypes" [value]="type">
+        {{ type }}
+      </mat-option>
+    </mat-select>
+  </mat-card>
+  <mat-card>
+    <button mat-raised-button [routerLink]="['/words']">Annuler</button>
+    <button *ngIf="!creation" mat-raised-button color="primary" (click)="update()">Enregister</button>
+    <button *ngIf="creation" mat-raised-button color="primary" (click)="create()">Ajouter</button>
+  </mat-card>
+</div>
