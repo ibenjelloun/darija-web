@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WordsService } from '../services/words.service';
 import { tap, first } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'dar-word-editor',
@@ -22,7 +23,8 @@ export class WordEditorComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private _wordsService: WordsService,
-    private _router: Router
+    private _router: Router,
+    public _snackBar: MatSnackBar
   ) {
     this.wordForm = this.fb.group({
       french: ['', Validators.required],
@@ -42,10 +44,12 @@ export class WordEditorComponent implements OnInit, OnDestroy {
         this.creation = false;
         this._wordsService
           .getWord(this.id)
-          .pipe(tap(word => {
-            this.wordForm.patchValue(word);
-            this.loading = false;
-          }))
+          .pipe(
+            tap(word => {
+              this.wordForm.patchValue(word);
+              this.loading = false;
+            })
+          )
           .subscribe();
       }
     });
@@ -57,7 +61,17 @@ export class WordEditorComponent implements OnInit, OnDestroy {
 
   update() {
     if (this.wordForm.valid) {
-      this._wordsService.update(this.wordForm.value);
+      this._wordsService
+        .update(this.id, this.wordForm.value)
+        .pipe(
+          first(),
+          tap(() =>
+            this._snackBar.open('Mot mis à jour avec succès.', 'ok', {
+              duration: 5000
+            })
+          )
+        )
+        .subscribe();
     }
   }
 
@@ -67,8 +81,14 @@ export class WordEditorComponent implements OnInit, OnDestroy {
         .add(this.wordForm.value)
         .pipe(
           first(),
+          tap(() =>
+            this._snackBar.open('Mot créé avec succès.', 'ok', {
+              duration: 5000
+            })
+          ),
           tap(id => this._router.navigate(['/words/update/' + id]))
-        );
+        )
+        .subscribe();
     }
   }
 }

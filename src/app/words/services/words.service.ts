@@ -33,23 +33,25 @@ export class WordsService {
   }
 
   public getWord(id: string) {
-    return Observable.fromPromise(this.afs.collection<Word>('words')
-      .doc<Word>(id)
-      .ref
-      .get())
-      .pipe(map(doc => doc.data()));
+    return Observable.fromPromise(
+      this.afs
+        .collection<Word>('words')
+        .doc<Word>(id)
+        .ref.get()
+    ).pipe(
+      map(doc => doc.data())
+    );
   }
 
   public add(word: Word): Observable<string> {
     return Observable.fromPromise(
       this.afs.collection<Word>('words').add(word)
-    ).pipe(map(doc =>
-      doc.id));
+    ).pipe(map(doc => doc.id));
   }
 
-  public update(word: Word): Observable<boolean> {
+  public update(id: string, word: Word): Observable<boolean> {
     return Observable.fromPromise(
-      this.afs.firestore.doc('words/' + word.id).update(word)
+      this.afs.firestore.doc('words/' + id).update(word)
     ).pipe(map(() => true));
   }
 
