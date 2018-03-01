@@ -1,0 +1,26 @@
+{
+  "short_name": "Darija",
+  "name": "Dictionnaire darija communautaire",
+  "icons": [
+    {
+      "src": "assets/images/launcher-icon-1x.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "assets/images/launcher-icon-2x.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "assets/images/launcher-icon-4x.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "index.html?launcher=true",
+  "theme_color": "aliceblue",
+  "background_color": "white",
+  "orientation": "portrait",
+  "display": "fullscreen"
+}
