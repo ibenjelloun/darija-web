@@ -12,6 +12,7 @@ before_script:
 
 script:
   - yarn build
+  - yarn sw
 
 after_success:
   - firebase deploy --token "$FIREBASE_TOKEN"
