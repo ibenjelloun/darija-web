@@ -2,7 +2,7 @@
   <mat-spinner></mat-spinner>
 </div>
 <div *ngIf="!loading" class="container" [formGroup]="wordForm">
-  <mat-card>
+  <mat-card class="container">
     <mat-form-field>
       <input matInput formControlName="french" placeholder="français">
     </mat-form-field>
@@ -15,7 +15,47 @@
       </mat-option>
     </mat-select>
   </mat-card>
-  <mat-card>
+
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Exemples
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel *ngIf="wordForm.value.type === 'VERB'">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Conjugaison - Présent
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel *ngIf="wordForm.value.type === 'VERB'">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Conjugaison - Passé
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel *ngIf="wordForm.value.type === 'VERB'">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Conjugaison - Futur
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div class="white-space"></div>
+
+  <mat-card class="action-buttons">
     <button mat-raised-button [routerLink]="['/words']">Annuler</button>
     <button *ngIf="!creation" mat-raised-button color="primary" (click)="update()">Enregister</button>
     <button *ngIf="creation" mat-raised-button color="primary" (click)="create()">Ajouter</button>

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'dar-header',
   template: `
-  <mat-toolbar color="primary">
+  <mat-toolbar class="darija-toolbar" color="primary">
     <mat-toolbar-row>
       <span>Darija</span>
       <button mat-icon-button [mat-menu-trigger-for]="menu">
@@ -13,10 +13,21 @@ import { Router } from '@angular/router';
       </button>
     </mat-toolbar-row>
     <mat-menu x-position="before" #menu="matMenu">
-      <button *ngIf="(user$ | async)" mat-menu-item (click)="logout()">Se déconnecter</button>
+      <ng-container *ngIf="(user$ | async)">
+        <div class="profil" mat-menu-item>
+          <div class="profil-pic">
+            <img src="{{(user$ | async).photoURL}}">
+          </div>
+          <div>
+            &nbsp;{{(user$ | async).displayName}}
+          </div>
+        </div>
+        <button mat-menu-item (click)="logout()">Se déconnecter</button>
+      </ng-container>
       <button *ngIf="!(user$ | async)" mat-menu-item (click)="login()">Se connecter</button>
     </mat-menu>
   </mat-toolbar>
+  <mat-toolbar></mat-toolbar>
   `,
   styleUrls: ['header.component.css']
 })
