@@ -36,7 +36,9 @@ export class WordEditorComponent implements OnInit, OnDestroy {
       racine: '',
       conjugaisonPresent: '',
       conjugaisonPast: '',
-      conjugaisonFuture: ''
+      conjugaisonFuture: '',
+      createdBy: undefined,
+      updatedBy: undefined
     });
   }
 

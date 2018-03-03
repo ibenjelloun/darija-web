@@ -60,6 +60,15 @@
     </mat-expansion-panel>
   </mat-accordion>
 
+  <mat-card>
+    <ng-container *ngIf="wordForm.value.createdBy">
+      Mot créé par {{ wordForm.value.createdBy }}
+    </ng-container>
+    <ng-container *ngIf="wordForm.value.updatedBy">
+      <br>Dernière modification par {{ wordForm.value.updatedBy }}
+    </ng-container>
+  </mat-card>
+
   <div class="white-space"></div>
 
   <mat-card class="action-buttons">

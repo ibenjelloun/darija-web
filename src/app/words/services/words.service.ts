@@ -1,21 +1,27 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Word } from '../model/word';
 import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { map } from 'rxjs/operators/map';
 import { Subject } from 'rxjs/Subject';
-import { firestore } from 'firebase/app';
+import { firestore, User } from 'firebase/app';
 import { share } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
+import { Subscription } from 'rxjs/Subscription';
+import { AuthService } from '../../core/services/auth.service';
 
 @Injectable()
-export class WordsService {
+export class WordsService implements OnDestroy {
   private _allWords: Observable<Word[]>;
   private _words: Word[];
+  private _user: User;
+  private _wordsSubscription: Subscription;
+  private _userSubscription: Subscription;
 
-  constructor(private afs: AngularFirestore) {
-    this.getAllWords().subscribe(words => (this._words = words));
+  constructor(private afs: AngularFirestore, private _authService: AuthService) {
+    this._wordsSubscription = this.getAllWords().subscribe(words => (this._words = words));
+    this._userSubscription = this._authService.getUser().subscribe(user => this._user = user);
   }
 
   public getAllWords(): Observable<Word[]> {
@@ -73,12 +79,14 @@ export class WordsService {
   }
 
   public add(word: Word): Observable<string> {
+    word.createdBy = this._user.displayName;
     return Observable.fromPromise(
       this.afs.collection<Word>('words').add(word)
     ).pipe(map(doc => doc.id));
   }
 
   public update(id: string, word: Word): Observable<boolean> {
+    word.updatedBy = this._user.displayName;
     return Observable.fromPromise(
       this.afs.firestore.doc('words/' + id).update(word)
     ).pipe(map(() => true));
@@ -88,5 +96,10 @@ export class WordsService {
     const word = a.payload.doc.data() as Word;
     word.id = a.payload.doc.id;
     return word;
-  };
+  }
+
+  ngOnDestroy() {
+    this._wordsSubscription.unsubscribe();
+    this._userSubscription.unsubscribe();
+  }
 }
