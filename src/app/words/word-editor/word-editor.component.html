@@ -4,16 +4,19 @@
 <div *ngIf="!loading" class="container" [formGroup]="wordForm">
   <mat-card class="container">
     <mat-form-field>
-      <input matInput formControlName="french" placeholder="français">
+      <input matInput formControlName="french" placeholder="Français">
     </mat-form-field>
     <mat-form-field>
-      <input matInput formControlName="darija" placeholder="darija">
+      <input matInput formControlName="darija" placeholder="Darija">
     </mat-form-field>
     <mat-select formControlName="type" placeholder="type">
       <mat-option *ngFor="let type of wordTypes" [value]="type">
         {{ type }}
       </mat-option>
     </mat-select>
+    <mat-form-field *ngIf="wordForm.value.type === 'VERB'">
+      <input matInput formControlName="racine" placeholder="Racine du verbe">
+    </mat-form-field>
   </mat-card>
 
   <mat-accordion>
@@ -23,7 +26,7 @@
           Exemples
         </mat-panel-title>
       </mat-expansion-panel-header>
-
+      <dar-word-examples formControlName="examples"></dar-word-examples>
     </mat-expansion-panel>
 
     <mat-expansion-panel *ngIf="wordForm.value.type === 'VERB'">
@@ -56,7 +59,8 @@
   <div class="white-space"></div>
 
   <mat-card class="action-buttons">
-    <button mat-raised-button [routerLink]="['/words']">Annuler</button>
+    <button *ngIf="wordForm.pristine" mat-raised-button [routerLink]="['/words']">Retour</button>
+    <button *ngIf="wordForm.dirty" mat-raised-button [routerLink]="['/words']">Annuler</button>
     <button *ngIf="!creation" mat-raised-button color="primary" (click)="update()">Enregister</button>
     <button *ngIf="creation" mat-raised-button color="primary" (click)="create()">Ajouter</button>
   </mat-card>

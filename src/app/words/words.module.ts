@@ -7,10 +7,11 @@ import { WordsListComponent } from './words-list/words-list.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { WordsService } from './services/words.service';
 import { WordEditorComponent } from './word-editor/word-editor.component';
+import { WordExamplesComponent } from './word-examples/word-examples.component';
 
 @NgModule({
   imports: [CommonModule, MaterialModule, WordsRoutingModule, FormsModule, ReactiveFormsModule],
-  declarations: [WordsComponent, WordsListComponent, WordEditorComponent],
+  declarations: [WordsComponent, WordsListComponent, WordEditorComponent, WordExamplesComponent],
   exports: [WordsComponent],
   providers: [WordsService]
 })

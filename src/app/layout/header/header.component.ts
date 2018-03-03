@@ -16,10 +16,10 @@ import { Router } from '@angular/router';
       <ng-container *ngIf="(user$ | async)">
         <div class="profil" mat-menu-item>
           <div class="profil-pic">
-            <img src="{{(user$ | async).photoURL}}">
+            <img src="{{(user$ | async)?.photoURL}}">
           </div>
           <div>
-            &nbsp;{{(user$ | async).displayName}}
+            &nbsp;{{(user$ | async)?.displayName}}
           </div>
         </div>
         <button mat-menu-item (click)="logout()">Se déconnecter</button>

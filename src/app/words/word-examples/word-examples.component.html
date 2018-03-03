@@ -1,0 +1,14 @@
+<div class="container">
+  <mat-list class="container" *ngFor="let wordExample of wordExamples; index as i">
+    <mat-list-item>Exemple {{ (i + 1) }}</mat-list-item>
+    <mat-form-field>
+      <textarea matInput placeholder="Français" [(ngModel)]="wordExample.french" (onModelChange)="changed()"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Darija" [(ngModel)]="wordExample.darija" (onModelChange)="changed()"></textarea>
+    </mat-form-field>
+    <button (click)="delete(i)" mat-button color="warn">Supprimer</button>
+    <mat-divider></mat-divider>
+  </mat-list>
+  <button mat-raised-button color="primary" (click)="add()">Ajouter un exemple</button>
+</div>

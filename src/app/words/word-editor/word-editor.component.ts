@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { Word, WordType } from '../model/word';
+import { Word, WordType, WordExample } from '../model/word';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WordsService } from '../services/words.service';
@@ -29,10 +29,12 @@ export class WordEditorComponent implements OnInit, OnDestroy {
     this.wordForm = this.fb.group({
       french: ['', Validators.required],
       darija: ['', Validators.required],
-      examples: '',
-      type: '',
+      examples: [],
+      type: WordType.NOUN,
       racine: '',
-      conjugaison: ''
+      conjugaisonPresent: '',
+      conjugaisonPasse: '',
+      conjugaisonFutur: ''
     });
   }
 
@@ -89,6 +91,11 @@ export class WordEditorComponent implements OnInit, OnDestroy {
           tap(id => this._router.navigate(['/words/update/' + id]))
         )
         .subscribe();
+    } else {
+      this._snackBar.open('Veuillez compléter le formulaire.', 'ok', {
+        duration: 5000
+      });
+      this.wordForm.markAsDirty();
     }
   }
 }

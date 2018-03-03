@@ -38,3 +38,8 @@ export enum WordType {
     ADJECTIVE = 'ADJECTIVE',
     NOUN = 'NOUN'
 }
+
+export class WordExample {
+  french: string;
+  darija: string;
+}
