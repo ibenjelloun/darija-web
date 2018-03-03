@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { WordsService } from '../services/words.service';
 import { tap, first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
+import { ConjugaisonService } from '../services/conjugaison.service';
 
 @Component({
   selector: 'dar-word-editor',
@@ -24,7 +25,8 @@ export class WordEditorComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private _wordsService: WordsService,
     private _router: Router,
-    public _snackBar: MatSnackBar
+    public _snackBar: MatSnackBar,
+    private _conjugaisonService: ConjugaisonService
   ) {
     this.wordForm = this.fb.group({
       french: ['', Validators.required],
@@ -33,8 +35,8 @@ export class WordEditorComponent implements OnInit, OnDestroy {
       type: WordType.NOUN,
       racine: '',
       conjugaisonPresent: '',
-      conjugaisonPasse: '',
-      conjugaisonFutur: ''
+      conjugaisonPast: '',
+      conjugaisonFuture: ''
     });
   }
 
@@ -96,6 +98,66 @@ export class WordEditorComponent implements OnInit, OnDestroy {
         duration: 5000
       });
       this.wordForm.markAsDirty();
+    }
+  }
+
+  generatePresent() {
+    if (this.wordForm.value.racine) {
+      const conjugaisonPresent = this._conjugaisonService.generatePresentConjugaison(
+        this.wordForm.value.racine
+      );
+      this.wordForm.patchValue(
+        Object.assign(this.wordForm.value, {
+          conjugaisonPresent: conjugaisonPresent
+        })
+      );
+      this._snackBar.open('Génération de la conjugaison au présent effectué.', 'ok', {
+        duration: 5000
+      });
+    } else {
+      this._snackBar.open('Veuillez spécifier le champs racine.', 'ok', {
+        duration: 5000
+      });
+    }
+  }
+
+  generatePast() {
+    if (this.wordForm.value.racine) {
+      const conjugaisonPast = this._conjugaisonService.generatePastConjugaison(
+        this.wordForm.value.racine
+      );
+      this.wordForm.patchValue(
+        Object.assign(this.wordForm.value, {
+          conjugaisonPast: conjugaisonPast
+        })
+      );
+      this._snackBar.open('Génération de la conjugaison au passé effectué.', 'ok', {
+        duration: 5000
+      });
+    } else {
+      this._snackBar.open('Veuillez spécifier le champs racine.', 'ok', {
+        duration: 5000
+      });
+    }
+  }
+
+  generateFuture() {
+    if (this.wordForm.value.racine) {
+      const conjugaisonFuture = this._conjugaisonService.generateFutureConjugaison(
+        this.wordForm.value.racine
+      );
+      this.wordForm.patchValue(
+        Object.assign(this.wordForm.value, {
+          conjugaisonFuture: conjugaisonFuture
+        })
+      );
+      this._snackBar.open('Génération de la conjugaison au futur effectué.', 'ok', {
+        duration: 5000
+      });
+    } else {
+      this._snackBar.open('Veuillez spécifier le champs racine.', 'ok', {
+        duration: 5000
+      });
     }
   }
 }

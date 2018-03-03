@@ -35,6 +35,8 @@
           Conjugaison - Présent
         </mat-panel-title>
       </mat-expansion-panel-header>
+      <button mat-button color="primary" (click)="generatePresent()">Générer conjugaison présent automatique</button>
+      <dar-conjugaison formControlName="conjugaisonPresent"></dar-conjugaison>
     </mat-expansion-panel>
 
     <mat-expansion-panel *ngIf="wordForm.value.type === 'VERB'">
@@ -43,7 +45,8 @@
           Conjugaison - Passé
         </mat-panel-title>
       </mat-expansion-panel-header>
-
+      <button mat-button color="primary" (click)="generatePast()">Générer conjugaison passé automatique</button>
+      <dar-conjugaison formControlName="conjugaisonPast"></dar-conjugaison>
     </mat-expansion-panel>
 
     <mat-expansion-panel *ngIf="wordForm.value.type === 'VERB'">
@@ -52,7 +55,8 @@
           Conjugaison - Futur
         </mat-panel-title>
       </mat-expansion-panel-header>
-
+      <button mat-button color="primary" (click)="generateFuture()">Générer conjugaison futur automatique</button>
+      <dar-conjugaison formControlName="conjugaisonFuture"></dar-conjugaison>
     </mat-expansion-panel>
   </mat-accordion>
 

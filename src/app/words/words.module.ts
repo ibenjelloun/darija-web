@@ -8,11 +8,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { WordsService } from './services/words.service';
 import { WordEditorComponent } from './word-editor/word-editor.component';
 import { WordExamplesComponent } from './word-examples/word-examples.component';
+import { ConjugaisonComponent } from './conjugaison/conjugaison.component';
+import { ConjugaisonService } from './services/conjugaison.service';
 
 @NgModule({
   imports: [CommonModule, MaterialModule, WordsRoutingModule, FormsModule, ReactiveFormsModule],
-  declarations: [WordsComponent, WordsListComponent, WordEditorComponent, WordExamplesComponent],
+  declarations: [WordsComponent, WordsListComponent, WordEditorComponent, WordExamplesComponent, ConjugaisonComponent],
   exports: [WordsComponent],
-  providers: [WordsService]
+  providers: [WordsService, ConjugaisonService]
 })
 export class WordsModule {}
