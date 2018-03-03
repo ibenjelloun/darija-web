@@ -22,5 +22,5 @@
   "theme_color": "aliceblue",
   "background_color": "white",
   "orientation": "portrait",
-  "display": "fullscreen"
+  "display": "minimal-ui"
 }
