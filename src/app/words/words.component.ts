@@ -18,9 +18,9 @@ export class WordsComponent {
 
   constructor(private _wordsService: WordsService) {
     this.searchField = new FormControl('');
-    const dsh = this._wordsService.getDynamicSearchHandler();
-    this.words$ = dsh.words$;
-    this.wordsSubject$ = dsh.fireSubject$;
+    const dlsh = this._wordsService.getDynamicLocalSearchHandler();
+    this.words$ = dlsh.words$;
+    this.wordsSubject$ = dlsh.localSubject$;
     this.searchField.valueChanges.subscribe(() =>
       this.wordsSubject$.next(this.searchField.value)
     );

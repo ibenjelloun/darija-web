@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConjugaisonComponentComponent } from './conjugaison-component.component';
+import { ConjugaisonComponent } from './conjugaison.component';
 
 describe('ConjugaisonComponentComponent', () => {
-  let component: ConjugaisonComponentComponent;
-  let fixture: ComponentFixture<ConjugaisonComponentComponent>;
+  let component: ConjugaisonComponent;
+  let fixture: ComponentFixture<ConjugaisonComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConjugaisonComponentComponent ]
+      declarations: [ ConjugaisonComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConjugaisonComponentComponent);
+    fixture = TestBed.createComponent(ConjugaisonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

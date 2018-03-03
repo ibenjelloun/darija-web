@@ -6,13 +6,44 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import { map } from 'rxjs/operators/map';
 import { Subject } from 'rxjs/Subject';
 import { firestore } from 'firebase/app';
+import { share } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class WordsService {
-  constructor(private afs: AngularFirestore) {}
+  private _allWords: Observable<Word[]>;
+  private _words: Word[];
+
+  constructor(private afs: AngularFirestore) {
+    this.getAllWords().subscribe(words => (this._words = words));
+  }
+
+  public getAllWords(): Observable<Word[]> {
+    if (!this._allWords) {
+      this._allWords = this.afs
+        .collection<any>('words')
+        .snapshotChanges()
+        .pipe(map(actions => actions.map(this.actionToWord)), share());
+    }
+    return this._allWords;
+  }
+
+  public getDynamicLocalSearchHandler(): { localSubject$; words$ } {
+    const localSubject$ = new Subject<string>();
+    const words$ = localSubject$.switchMap(search =>
+      of(
+        this._words.filter(
+          word =>
+            word.french.toLowerCase().includes(search.toLowerCase()) ||
+            word.darija.toLowerCase().includes(search.toLowerCase())
+        ).slice(0, 5)
+      )
+    );
+    return { localSubject$: localSubject$, words$: words$ };
+  }
 
   public getDynamicSearchHandler(): { fireSubject$; words$ } {
-    const fireSubject$ = new Subject<Word[]>();
+    const fireSubject$ = new Subject<string>();
     const words$ = fireSubject$.switchMap(search =>
       combineLatest(
         this.afs
@@ -38,9 +69,7 @@ export class WordsService {
         .collection<Word>('words')
         .doc<Word>(id)
         .ref.get()
-    ).pipe(
-      map(doc => doc.data())
-    );
+    ).pipe(map(doc => doc.data()));
   }
 
   public add(word: Word): Observable<string> {
@@ -59,5 +88,5 @@ export class WordsService {
     const word = a.payload.doc.data() as Word;
     word.id = a.payload.doc.id;
     return word;
-  }
+  };
 }

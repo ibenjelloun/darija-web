@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ConjugaisonServiceService } from './conjugaison-service.service';
+import { ConjugaisonService } from './conjugaison.service';
 
 describe('ConjugaisonServiceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ConjugaisonServiceService]
+      providers: [ConjugaisonService]
     });
   });
 
-  it('should be created', inject([ConjugaisonServiceService], (service: ConjugaisonServiceService) => {
+  it('should be created', inject([ConjugaisonService], (service: ConjugaisonService) => {
     expect(service).toBeTruthy();
   }));
 });
