@@ -19,9 +19,16 @@ export class WordsService implements OnDestroy {
   private _wordsSubscription: Subscription;
   private _userSubscription: Subscription;
 
-  constructor(private afs: AngularFirestore, private _authService: AuthService) {
-    this._wordsSubscription = this.getAllWords().subscribe(words => (this._words = words));
-    this._userSubscription = this._authService.getUser().subscribe(user => this._user = user);
+  constructor(
+    private afs: AngularFirestore,
+    private _authService: AuthService
+  ) {
+    this._wordsSubscription = this.getAllWords().subscribe(
+      words => (this._words = words)
+    );
+    this._userSubscription = this._authService
+      .getUser()
+      .subscribe(user => (this._user = user));
   }
 
   public getAllWords(): Observable<Word[]> {
@@ -38,11 +45,15 @@ export class WordsService implements OnDestroy {
     const localSubject$ = new Subject<string>();
     const words$ = localSubject$.switchMap(search =>
       of(
-        this._words.filter(
-          word =>
-            word.french.toLowerCase().includes(search.toLowerCase()) ||
-            word.darija.toLowerCase().includes(search.toLowerCase())
-        ).slice(0, 5)
+        this._words
+          .filter(
+            word =>
+             word.french &&
+              word.darija &&
+              (word.french.toLowerCase().includes(search.toLowerCase()) ||
+                word.darija.toLowerCase().includes(search.toLowerCase()))
+          )
+          .slice(0, 5)
       )
     );
     return { localSubject$: localSubject$, words$: words$ };

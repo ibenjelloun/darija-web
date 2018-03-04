@@ -61,6 +61,9 @@
   </mat-accordion>
 
   <mat-card>
+    <ng-container *ngIf="!wordForm.value.createdBy">
+      Mot créé lors de l'initialisation
+    </ng-container>
     <ng-container *ngIf="wordForm.value.createdBy">
       Mot créé par {{ wordForm.value.createdBy }}
     </ng-container>
