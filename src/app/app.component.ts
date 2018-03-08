@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     this.onSetTheme(true);
   }
 
-  private onSetTheme(theme: boolean) {
+  public onSetTheme(theme: boolean) {
     let newTheme, oldTheme;
     if (theme) {
       newTheme = 'light-theme';
