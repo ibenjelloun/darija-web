@@ -18,6 +18,7 @@ import { WordsModule } from './words/words.module';
 import { MaterialModule } from './material/material.module';
 import { LayoutModule } from './layout/layout.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -29,6 +30,7 @@ export const firebaseConfig = environment.firebaseConfig;
     ReactiveFormsModule,
     HttpModule,
     BrowserAnimationsModule,
+    OverlayModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,

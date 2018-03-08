@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 
@@ -22,6 +22,11 @@ import { Router } from '@angular/router';
             &nbsp;{{(user$ | async)?.displayName}}
           </div>
         </div>
+        <div mat-menu-item>
+          <mat-slide-toggle [(ngModel)]="theme" (ngModelChange)="setTheme.emit($event)">
+            {{ theme ? 'Clair' : 'Sombre'}}
+          </mat-slide-toggle>
+        </div>
         <button mat-menu-item (click)="logout()">Se déconnecter</button>
       </ng-container>
       <button *ngIf="!(user$ | async)" mat-menu-item (click)="login()">Se connecter</button>
@@ -32,9 +37,14 @@ import { Router } from '@angular/router';
   styleUrls: ['header.component.css']
 })
 export class HeaderComponent {
+  @Output() setTheme = new EventEmitter<boolean>();
   user$;
+  theme = true;
 
-  constructor(private _authService: AuthService, private _router: Router) {
+  constructor(
+    private _authService: AuthService,
+    private _router: Router
+  ) {
     this.user$ = this._authService.getUser();
   }
 
