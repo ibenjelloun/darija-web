@@ -21,8 +21,14 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "dar",
       "styles": [
-        "styles.css"
+        "assets/sass/styles.scss",
+        "assets/sass/theme.scss"
       ],
+      "stylePreprocessorOptions": {
+        "includePaths": [
+          "../node_modules/bootstrap/scss"
+        ]
+      },
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -56,7 +62,8 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
-    "component": {}
+    "styleExt": "scss",
+    "component": {
+    }
   }
 }
