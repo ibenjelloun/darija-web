@@ -7,14 +7,17 @@ import { Router } from '@angular/router';
   template: `
   <mat-toolbar class="darija-toolbar" color="primary">
     <mat-toolbar-row>
-      <span>Darija</span>
+      <button mat-button [routerLink]="['/words']">
+        <img src="../../../assets/images/darija.svg">
+        <span>Darija</span>
+      </button>
       <button mat-icon-button [mat-menu-trigger-for]="menu">
         <mat-icon>more_vert</mat-icon>
       </button>
     </mat-toolbar-row>
     <mat-menu x-position="before" #menu="matMenu">
       <ng-container *ngIf="(user$ | async)">
-        <div class="profil" mat-menu-item>
+        <div [routerLink]="['/profil']" class="profil" mat-menu-item>
           <div class="profil-pic">
             <img src="{{(user$ | async)?.photoURL}}">
           </div>

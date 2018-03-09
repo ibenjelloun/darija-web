@@ -10,6 +10,11 @@ export const routes: Routes = [
       'app/authentication/authentication.module#AuthenticationModule'
   },
   {
+    path: 'profil',
+    loadChildren:
+      'app/profil/profil.module#ProfilModule'
+  },
+  {
     path: '',
     canActivate: [AuthenticationGuard],
     children: [

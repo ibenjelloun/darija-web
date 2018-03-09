@@ -19,6 +19,8 @@ import { MaterialModule } from './material/material.module';
 import { LayoutModule } from './layout/layout.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { ProfilModule } from './profil/profil.module';
+import 'hammerjs';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -42,7 +44,8 @@ export const firebaseConfig = environment.firebaseConfig;
     AppRoutingModule,
     MaterialModule,
     LayoutModule,
-    WordsModule
+    WordsModule,
+    ProfilModule
   ],
   providers: [],
   bootstrap: [AppComponent]
