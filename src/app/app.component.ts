@@ -44,7 +44,6 @@ export class AppComponent implements OnInit {
       )
     );
     this.user$ = this._authService.getUser();
-    this._router.setUpLocationChangeListener = () => console.log(this._router.url);
   }
 
   ngOnInit() {
