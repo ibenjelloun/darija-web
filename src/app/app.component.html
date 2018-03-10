@@ -1,6 +1,6 @@
 <mat-sidenav-container class="main-container">
 
-  <dar-header (setTheme)="onSetTheme($event)"></dar-header>
+  <dar-header (setNightMode)="onSetNightMode($event)" [nightMode]="nightMode"></dar-header>
 
   <router-outlet></router-outlet>
 

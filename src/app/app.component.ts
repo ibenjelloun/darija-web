@@ -1,5 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'dar-root',
@@ -8,17 +9,19 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 })
 export class AppComponent implements OnInit {
   @HostBinding('class') componentCssClass;
+  nightMode: boolean;
 
-  constructor(private _overlayContainer: OverlayContainer) {
+  constructor(private _overlayContainer: OverlayContainer, private _cookieService: CookieService) {
   }
 
   ngOnInit() {
-    this.onSetTheme(true);
+    this.nightMode = this._cookieService.get('nightMode') === 'true';
+    this.onSetNightMode(this.nightMode);
   }
 
-  public onSetTheme(theme: boolean) {
+  public onSetNightMode(nightMode: boolean) {
     let newTheme, oldTheme;
-    if (theme) {
+    if (!nightMode) {
       newTheme = 'light-theme';
       oldTheme = 'dark-theme';
     } else {
@@ -28,5 +31,6 @@ export class AppComponent implements OnInit {
     this._overlayContainer.getContainerElement().classList.remove(oldTheme);
     this._overlayContainer.getContainerElement().classList.add(newTheme);
     this.componentCssClass = newTheme;
+    this._cookieService.set('nightMode', '' + nightMode);
   }
 }
