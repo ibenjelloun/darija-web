@@ -7,6 +7,6 @@ import { MaterialModule } from '../material/material.module';
 @NgModule({
   imports: [CommonModule, MaterialModule, AuthenticationRoutingModule],
   declarations: [AuthenticationComponent],
-  exports: [AuthenticationComponent]
+  exports: []
 })
 export class AuthenticationModule {}

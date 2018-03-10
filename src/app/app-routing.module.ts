@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthenticationGuard } from './core/guards/authentication-guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'words', pathMatch: 'full' },
+  {
+    path: 'words',
+    loadChildren: 'app/words/words.module#WordsModule'
+  },
   {
     path: 'login',
     loadChildren:
@@ -11,18 +14,7 @@ export const routes: Routes = [
   },
   {
     path: 'profil',
-    loadChildren:
-      'app/profil/profil.module#ProfilModule'
-  },
-  {
-    path: '',
-    canActivate: [AuthenticationGuard],
-    children: [
-      {
-        path: 'words',
-        loadChildren: 'app/words/words.module#WordsModule'
-      }
-    ]
+    loadChildren: 'app/profil/profil.module#ProfilModule'
   }
 ];
 

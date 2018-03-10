@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ProfilModule } from './profil/profil.module';
 import 'hammerjs';
+import { HttpClientModule } from '@angular/common/http';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -40,12 +41,13 @@ export const firebaseConfig = environment.firebaseConfig;
     AngularFireDatabaseModule,
     CoreModule,
     SharedModule,
-    AuthenticationModule,
     AppRoutingModule,
     MaterialModule,
     LayoutModule,
     WordsModule,
-    ProfilModule
+    AuthenticationModule,
+    ProfilModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

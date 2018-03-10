@@ -6,6 +6,7 @@ import { WordsService } from '../services/words.service';
 import { tap, first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { ConjugaisonService } from '../services/conjugaison.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'dar-word-editor',
@@ -19,6 +20,7 @@ export class WordEditorComponent implements OnInit, OnDestroy {
   wordTypes = Object.keys(WordType).map(_ => WordType[_]);
   creation = true;
   loading = false;
+  user$;
 
   constructor(
     private fb: FormBuilder,
@@ -26,7 +28,8 @@ export class WordEditorComponent implements OnInit, OnDestroy {
     private _wordsService: WordsService,
     private _router: Router,
     public _snackBar: MatSnackBar,
-    private _conjugaisonService: ConjugaisonService
+    private _conjugaisonService: ConjugaisonService,
+    private _authService: AuthService
   ) {
     this.wordForm = this.fb.group({
       french: ['', Validators.required],
@@ -40,6 +43,7 @@ export class WordEditorComponent implements OnInit, OnDestroy {
       createdBy: undefined,
       updatedBy: undefined
     });
+    this.user$ = this._authService.getUser();
   }
 
   ngOnInit() {

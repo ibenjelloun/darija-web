@@ -1,7 +1,36 @@
-<mat-sidenav-container class="main-container">
+<div class="main-container" [class.is-mobile]="mobileQuery.matches">
+  <dar-header (openMenu)="snav.toggle()"></dar-header>
+  <mat-toolbar *ngIf="!mobileQuery.matches"></mat-toolbar>
 
-  <dar-header (setNightMode)="onSetNightMode($event)" [nightMode]="nightMode"></dar-header>
+  <mat-sidenav-container class="side-nav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
 
-  <router-outlet></router-outlet>
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['./words']">
+          <mat-icon>search</mat-icon>Recherche</a>
+        <ng-container *ngIf="(user$ | async)">
+          <div [routerLink]="['/profil']" class="profil" mat-list-item>
+            <div class="profil-pic">
+              <img src="{{(user$ | async)?.photoURL}}">
+            </div>
+            <div>
+              &nbsp;{{(user$ | async)?.displayName}}
+            </div>
+          </div>
+          <div mat-list-item>
+            <mat-slide-toggle [(ngModel)]="nightMode" (ngModelChange)="onSetNightMode($event)">
+              Mode Nuit
+            </mat-slide-toggle>
+          </div>
+          <a mat-list-item (click)="logout()">Se déconnecter</a>
+        </ng-container>
+        <a *ngIf="!(user$ | async)" mat-list-item (click)="login()">Connexion</a>
+      </mat-nav-list>
+    </mat-sidenav>
 
-</mat-sidenav-container>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>

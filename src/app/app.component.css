@@ -1,4 +1,6 @@
 .main-container {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -6,4 +8,22 @@
   right: 0;
 }
 
+.side-nav-container {
+  flex: 1;
+}
 
+img {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+}
+
+.profil {
+  display: flex;
+}
+
+.profil-pic {
+  display: flex;
+  align-items: center;
+}

@@ -77,7 +77,9 @@
   <mat-card class="action-buttons">
     <button *ngIf="wordForm.pristine" mat-raised-button [routerLink]="['/words']">Retour</button>
     <button *ngIf="wordForm.dirty" mat-raised-button [routerLink]="['/words']">Annuler</button>
-    <button *ngIf="!creation" mat-raised-button color="primary" (click)="update()">Enregister</button>
-    <button *ngIf="creation" mat-raised-button color="primary" (click)="create()">Ajouter</button>
+    <ng-container *ngIf="user$ | async">
+      <button *ngIf="!creation" mat-raised-button color="primary" (click)="update()">Enregister</button>
+      <button *ngIf="creation" mat-raised-button color="primary" (click)="create()">Ajouter</button>
+    </ng-container>
   </mat-card>
 </div>

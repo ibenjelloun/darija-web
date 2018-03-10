@@ -3,23 +3,3 @@
   top: 0px;
   z-index: 100;
 }
-
-mat-toolbar-row {
-  justify-content: space-between;
-}
-
-img {
-  height: 32px;
-  width: 32px;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-}
-
-.profil {
-  display: flex;
-}
-
-.profil-pic {
-  display: flex;
-  align-items: center;
-}
