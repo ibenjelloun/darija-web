@@ -21,9 +21,23 @@ img {
 
 .profil {
   display: flex;
+  align-items: center;
 }
 
 .profil-pic {
   display: flex;
   align-items: center;
+}
+
+.list-item {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+  padding-top: 3px;
+}
+
+.side-nav {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }

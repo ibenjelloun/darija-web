@@ -9,6 +9,7 @@ import { AuthService } from '../core/services/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'dar-words',
@@ -16,28 +17,32 @@ import { first } from 'rxjs/operators';
   styleUrls: ['words.component.css']
 })
 export class WordsComponent {
+  readonly alphabet = 'abcdefghijklmnopqrstuvwxyz';
+
   words$ = new Observable<Word[]>();
-  wordsSubject$ = new Subject<string>();
+  wordsSubject$: Subject<string>;
   searchField: FormControl;
 
   constructor(
     private _wordsService: WordsService,
     private _authService: AuthService,
     private _snackBar: MatSnackBar,
-    private _router: Router
+    private _router: Router,
+    private _cookieService: CookieService
   ) {
     this.searchField = new FormControl('');
     const dlsh = this._wordsService.getDynamicLocalSearchHandler();
     this.words$ = dlsh.words$;
     this.wordsSubject$ = dlsh.localSubject$;
-    this.searchField.valueChanges.subscribe(() =>
-      this.wordsSubject$.next(this.searchField.value)
-    );
+    this.searchField.valueChanges.subscribe(() => {
+      const term = this.searchField.value !== '' ? this.searchField.value : this.getRandomSearch();
+      this.wordsSubject$.next(term);
+      this._cookieService.set('search_term', term);
+    });
   }
 
   addWord() {
-    this._authService.user.pipe(first())
-    .subscribe(user => {
+    this._authService.user.pipe(first()).subscribe(user => {
       if (!user || user.isAnonymous) {
         this._snackBar.open(
           'Pour ajouter un mot, veuillez vous authentifier.',
@@ -50,5 +55,9 @@ export class WordsComponent {
         this._router.navigate(['/words/add']);
       }
     });
+  }
+
+  getRandomSearch() {
+    return this.alphabet[Math.floor(Math.random() * this.alphabet.length)];
   }
 }

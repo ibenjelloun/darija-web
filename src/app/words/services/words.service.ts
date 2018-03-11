@@ -45,6 +45,7 @@ export class WordsService implements OnDestroy {
     const localSubject$ = new Subject<string>();
     const words$ = localSubject$.switchMap(search =>
       of(
+        this._words ?
         this._words
           .filter(
             word =>
@@ -53,7 +54,7 @@ export class WordsService implements OnDestroy {
               (word.french.toLowerCase().includes(search.toLowerCase()) ||
                 word.darija.toLowerCase().includes(search.toLowerCase()))
           )
-          .slice(0, 5)
+          .slice(0, 5) : []
       )
     );
     return { localSubject$: localSubject$, words$: words$ };
