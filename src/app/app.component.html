@@ -1,5 +1,5 @@
 <div class="main-container" [class.is-mobile]="mobileQuery.matches">
-  <dar-header (openMenu)="snav.toggle()"></dar-header>
+  <dar-header [nightMode]="nightMode" (openMenu)="snav.toggle()"></dar-header>
   <mat-toolbar *ngIf="!mobileQuery.matches"></mat-toolbar>
 
   <mat-sidenav-container class="side-nav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">

@@ -4,8 +4,8 @@
       <mat-icon>menu</mat-icon>
     </button>
     <button mat-button [routerLink]="['/words']">
-      <mat-icon svgIcon="darija"></mat-icon>
-      <span>Darija</span>
+      <img *ngIf="!nightMode" src="assets/images/darija.png" height="30"/>
+      <img *ngIf="nightMode" src="assets/images/darija-white.png" height="30"/>
     </button>
   </mat-toolbar-row>
 </mat-toolbar>

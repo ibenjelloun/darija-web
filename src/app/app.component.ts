@@ -39,9 +39,11 @@ export class AppComponent implements OnInit {
     this.mobileQuery.addListener(this._mobileQueryListener);
     iconRegistry.addSvgIcon(
       'darija',
-      sanitizer.bypassSecurityTrustResourceUrl(
-        'assets/images/darija.svg'
-      )
+      sanitizer.bypassSecurityTrustResourceUrl('assets/images/darija.svg')
+    );
+    iconRegistry.addSvgIcon(
+      'darija-white',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/images/darija-white.svg')
     );
     this.user$ = this._authService.getUser();
   }
