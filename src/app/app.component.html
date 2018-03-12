@@ -24,7 +24,12 @@
         <a mat-list-item>
           <mat-icon>history</mat-icon>Historique de mots
         </a>
+        <a mat-list-item>
+          <mat-icon>help</mat-icon>Aide
+        </a>
       </mat-nav-list>
+
+
       <mat-nav-list>
         <mat-divider></mat-divider>
         <a *ngIf="(user$ | async)" mat-list-item (click)="logout()">Se déconnecter</a>

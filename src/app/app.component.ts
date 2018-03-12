@@ -2,26 +2,32 @@ import {
   Component,
   HostBinding,
   OnInit,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  ViewChild,
+  OnDestroy
 } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { CookieService } from 'ngx-cookie-service';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { MatIconRegistry } from '@angular/material';
+import { MatIconRegistry, MatSidenav } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from './core/services/auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'dar-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+  @ViewChild('snav') snav: MatSidenav;
   @HostBinding('class') componentCssClass;
   nightMode: boolean;
   mobileQuery: MediaQueryList;
   user$;
+  lang = 'fr';
+  routerSubscription: Subscription;
   private _mobileQueryListener: () => void;
 
   constructor(
@@ -46,6 +52,7 @@ export class AppComponent implements OnInit {
       sanitizer.bypassSecurityTrustResourceUrl('assets/images/darija-white.svg')
     );
     this.user$ = this._authService.getUser();
+    this.routerSubscription = this._router.events.subscribe(url => this.mobileQuery.matches ? this.snav.close() : undefined);
   }
 
   ngOnInit() {
@@ -74,5 +81,9 @@ export class AppComponent implements OnInit {
 
   logout() {
     this._authService.logout();
+  }
+
+  ngOnDestroy() {
+    this.routerSubscription.unsubscribe();
   }
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProfilComponent } from './profil/profil.component';
+import { ProfilComponent } from './profil.component';
 
 @NgModule({
   imports: [
