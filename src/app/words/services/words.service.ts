@@ -81,13 +81,13 @@ export class WordsService implements OnDestroy {
     return { fireSubject$: fireSubject$, words$: words$ };
   }
 
-  public getWord(id: string) {
+  public getWord(id: string): Observable<Word> {
     return Observable.fromPromise(
       this.afs
         .collection<Word>('words')
         .doc<Word>(id)
         .ref.get()
-    ).pipe(map(doc => doc.data()));
+    ).pipe(map(doc => <Word>(doc.data())));
   }
 
   public add(word: Word): Observable<string> {

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HelpComponent } from './help/help.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'words', pathMatch: 'full' },
@@ -15,6 +16,10 @@ export const routes: Routes = [
   {
     path: 'profil',
     loadChildren: 'app/profil/profil.module#ProfilModule'
+  },
+  {
+    path: 'help',
+    component: HelpComponent
   }
 ];
 

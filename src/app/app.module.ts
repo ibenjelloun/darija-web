@@ -22,11 +22,12 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { ProfilModule } from './profil/profil.module';
 import 'hammerjs';
 import { HttpClientModule } from '@angular/common/http';
+import { HelpComponent } from './help/help.component';
 
 export const firebaseConfig = environment.firebaseConfig;
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HelpComponent],
   imports: [
     CommonModule,
     FormsModule,

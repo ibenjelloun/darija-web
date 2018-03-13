@@ -10,11 +10,13 @@ import { WordEditorComponent } from './word-editor/word-editor.component';
 import { WordExamplesComponent } from './word-examples/word-examples.component';
 import { ConjugaisonComponent } from './conjugaison/conjugaison.component';
 import { ConjugaisonService } from './services/conjugaison.service';
+import { HistoryService } from './services/history.service';
+import { HistoryComponent } from './history/history.component';
 
 @NgModule({
   imports: [CommonModule, MaterialModule, WordsRoutingModule, FormsModule, ReactiveFormsModule],
-  declarations: [WordsComponent, WordsListComponent, WordEditorComponent, WordExamplesComponent, ConjugaisonComponent],
+  declarations: [WordsComponent, WordsListComponent, WordEditorComponent, WordExamplesComponent, ConjugaisonComponent, HistoryComponent],
   exports: [WordsComponent],
-  providers: [WordsService, ConjugaisonService]
+  providers: [WordsService, ConjugaisonService, HistoryService]
 })
 export class WordsModule {}

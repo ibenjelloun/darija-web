@@ -7,6 +7,7 @@ import { tap, first } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { ConjugaisonService } from '../services/conjugaison.service';
 import { AuthService } from '../../core/services/auth.service';
+import { HistoryService } from '../services/history.service';
 
 @Component({
   selector: 'dar-word-editor',
@@ -29,7 +30,8 @@ export class WordEditorComponent implements OnInit, OnDestroy {
     private _router: Router,
     public _snackBar: MatSnackBar,
     private _conjugaisonService: ConjugaisonService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _historyService: HistoryService
   ) {
     this.wordForm = this.fb.group({
       french: ['', Validators.required],
@@ -58,6 +60,8 @@ export class WordEditorComponent implements OnInit, OnDestroy {
             tap(word => {
               this.wordForm.patchValue(word);
               this.loading = false;
+              word.id = this.id;
+              this._historyService.addWordToHistory(word);
             })
           )
           .subscribe();
