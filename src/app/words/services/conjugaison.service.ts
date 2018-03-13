@@ -18,15 +18,18 @@ export class ConjugaisonService {
   }
 
   generatePastConjugaison(racine: string) {
+    const lastLetter: string = racine.charAt(racine.length - 1);
+    const endsWithVowel = 'aeiyou'.includes(lastLetter);
+    const racineMinusLast = endsWithVowel ? racine.slice(0, racine.length - 1) : racine;
     return {
       ana: racine + 't',
       nta: racine + 'ti',
       nti: racine + 't',
-      houa: racine,
-      hia: racine + 'et',
+      houa: endsWithVowel ? racineMinusLast + 'a' :  racine,
+      hia: racineMinusLast + 'at',
       hna: racine + 'na',
       ntouma: racine + 'tiw',
-      houma: racine + 'o'
+      houma: endsWithVowel ? racineMinusLast + 'aw' : racine + 'o'
     };
   }
 
