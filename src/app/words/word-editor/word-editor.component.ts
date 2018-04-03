@@ -89,6 +89,20 @@ export class WordEditorComponent implements OnInit, OnDestroy {
     }
   }
 
+  delete() {
+    this._wordsService
+      .delete(this.id)
+      .pipe(
+        first(),
+        tap(() =>
+          this._snackBar.open('Mot supprimé avec succès.', 'ok', {
+            duration: 5000
+          })
+        )
+      )
+      .subscribe(() => this._router.navigate(['/words']));
+  }
+
   create() {
     if (this.wordForm.valid) {
       this._wordsService

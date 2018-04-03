@@ -104,6 +104,12 @@ export class WordsService implements OnDestroy {
     ).pipe(map(() => true));
   }
 
+  public delete(id: string): Observable<boolean> {
+    return Observable.fromPromise(
+      this.afs.firestore.doc('words/' + id).delete()
+    ).pipe(map(() => true));
+  }
+
   actionToWord = a => {
     const word = a.payload.doc.data() as Word;
     word.id = a.payload.doc.id;

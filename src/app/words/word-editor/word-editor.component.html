@@ -79,6 +79,7 @@
     <button *ngIf="wordForm.dirty" mat-raised-button [routerLink]="['/words']">Annuler</button>
     <ng-container *ngIf="user$ | async">
       <button *ngIf="!creation" mat-raised-button color="primary" (click)="update()">Enregister</button>
+      <button *ngIf="!creation" mat-raised-button color="primary" (click)="delete()">Supprimer</button>
       <button *ngIf="creation" mat-raised-button color="primary" (click)="create()">Ajouter</button>
     </ng-container>
   </mat-card>
