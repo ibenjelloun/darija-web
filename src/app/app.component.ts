@@ -14,6 +14,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from './core/services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'dar-root',
@@ -38,7 +39,8 @@ export class AppComponent implements OnInit, OnDestroy {
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private _authService: AuthService,
-    private _router: Router
+    private _router: Router,
+    private translate: TranslateService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -53,6 +55,8 @@ export class AppComponent implements OnInit, OnDestroy {
     );
     this.user$ = this._authService.getUser();
     this.routerSubscription = this._router.events.subscribe(url => this.mobileQuery.matches ? this.snav.close() : undefined);
+
+    translate.setDefaultLang('fr');
   }
 
   ngOnInit() {

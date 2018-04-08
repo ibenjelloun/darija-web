@@ -12,9 +12,10 @@ import { ConjugaisonComponent } from './conjugaison/conjugaison.component';
 import { ConjugaisonService } from './services/conjugaison.service';
 import { HistoryService } from './services/history.service';
 import { HistoryComponent } from './history/history.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  imports: [CommonModule, MaterialModule, WordsRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, MaterialModule, WordsRoutingModule, FormsModule, ReactiveFormsModule, TranslateModule],
   declarations: [WordsComponent, WordsListComponent, WordEditorComponent, WordExamplesComponent, ConjugaisonComponent, HistoryComponent],
   exports: [WordsComponent],
   providers: [WordsService, ConjugaisonService, HistoryService]

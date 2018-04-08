@@ -36,6 +36,8 @@ export class WordEditorComponent implements OnInit, OnDestroy {
     this.wordForm = this.fb.group({
       french: ['', Validators.required],
       darija: ['', Validators.required],
+      feminin: '',
+      plural: '',
       examples: [],
       type: WordType.NOUN,
       racine: '',

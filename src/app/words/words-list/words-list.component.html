@@ -13,6 +13,12 @@
       <mat-cell *matCellDef="let element"> {{element.darija}} </mat-cell>
     </ng-container>
 
+    <!-- Type Column -->
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.type | translate}} </mat-cell>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/words/update/', row.id]"></mat-row>
   </mat-table>

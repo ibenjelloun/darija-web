@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
@@ -32,7 +31,7 @@ export const firebaseConfig = environment.firebaseConfig;
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     OverlayModule,
     AngularFireModule.initializeApp(firebaseConfig),

@@ -9,9 +9,15 @@
     <mat-form-field>
       <input matInput formControlName="darija" placeholder="Darija">
     </mat-form-field>
+    <mat-form-field *ngIf="wordForm.value.type !== 'VERB'">
+      <input matInput formControlName="feminin" placeholder="Féminin">
+    </mat-form-field>
+    <mat-form-field *ngIf="wordForm.value.type !== 'VERB'">
+      <input matInput formControlName="plural" placeholder="Pluriel">
+    </mat-form-field>
     <mat-select formControlName="type" placeholder="type">
       <mat-option *ngFor="let type of wordTypes" [value]="type">
-        {{ type }}
+        {{ type | translate }}
       </mat-option>
     </mat-select>
     <mat-form-field *ngIf="wordForm.value.type === 'VERB'">
@@ -35,7 +41,7 @@
           Conjugaison - Présent
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <button mat-button color="primary" (click)="generatePresent()">Générer conjugaison présent automatique</button>
+      <button *ngIf="!wordForm.value.conjugaisonPresent.ana" mat-button color="primary" (click)="generatePresent()">Générer conjugaison présent automatique</button>
       <dar-conjugaison formControlName="conjugaisonPresent"></dar-conjugaison>
     </mat-expansion-panel>
 
@@ -45,7 +51,7 @@
           Conjugaison - Passé
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <button mat-button color="primary" (click)="generatePast()">Générer conjugaison passé automatique</button>
+      <button *ngIf="!wordForm.value.conjugaisonPast.ana" mat-button color="primary" (click)="generatePast()">Générer conjugaison passé automatique</button>
       <dar-conjugaison formControlName="conjugaisonPast"></dar-conjugaison>
     </mat-expansion-panel>
 
@@ -55,7 +61,7 @@
           Conjugaison - Futur
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <button mat-button color="primary" (click)="generateFuture()">Générer conjugaison futur automatique</button>
+      <button *ngIf="!wordForm.value.conjugaisonFuture.ana" mat-button color="primary" (click)="generateFuture()">Générer conjugaison futur automatique</button>
       <dar-conjugaison formControlName="conjugaisonFuture"></dar-conjugaison>
     </mat-expansion-panel>
   </mat-accordion>

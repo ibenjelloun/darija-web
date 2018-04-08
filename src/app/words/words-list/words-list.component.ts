@@ -10,7 +10,7 @@ import { WordsListDataSource } from './words-list-datasource';
 export class WordsListComponent implements OnChanges {
   @Input() words$: Observable<Word[]>;
   dataSource;
-  displayedColumns = ['french', 'darija'];
+  displayedColumns = ['french', 'darija', 'type'];
 
   ngOnChanges() {
     this.dataSource = new WordsListDataSource(this.words$);
