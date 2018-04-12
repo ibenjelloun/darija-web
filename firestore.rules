@@ -7,7 +7,7 @@ service cloud.firestore {
      allow delete: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.rank > 1999;
     }
     match /users/{user} {
-     allow read: if user.uid == request.auth.uid;
+     allow read: if true;
     }
   }
 }
