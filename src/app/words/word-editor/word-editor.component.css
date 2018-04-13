@@ -24,3 +24,8 @@
 .white-space {
   height: 20vh;
 }
+
+.votes {
+  padding: 2px;
+  margin: 10px;
+}

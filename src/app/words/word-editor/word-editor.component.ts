@@ -22,6 +22,7 @@ export class WordEditorComponent implements OnInit, OnDestroy {
   creation = true;
   loading = false;
   user$;
+  votes$;
 
   constructor(
     private fb: FormBuilder,
@@ -67,6 +68,7 @@ export class WordEditorComponent implements OnInit, OnDestroy {
             })
           )
           .subscribe();
+        this.votes$ = this._wordsService.getVotes(this.id);
       }
     });
   }
@@ -81,11 +83,12 @@ export class WordEditorComponent implements OnInit, OnDestroy {
         .update(this.id, this.wordForm.value)
         .pipe(
           first(),
-          tap(() =>
+          tap(() => {
+            this.wordForm.markAsPristine();
             this._snackBar.open('Mot mis à jour avec succès.', 'ok', {
               duration: 5000
-            })
-          )
+            });
+          })
         )
         .subscribe();
     }
@@ -137,9 +140,13 @@ export class WordEditorComponent implements OnInit, OnDestroy {
           conjugaisonPresent: conjugaisonPresent
         })
       );
-      this._snackBar.open('Génération de la conjugaison au présent effectué.', 'ok', {
-        duration: 5000
-      });
+      this._snackBar.open(
+        'Génération de la conjugaison au présent effectué.',
+        'ok',
+        {
+          duration: 5000
+        }
+      );
     } else {
       this._snackBar.open('Veuillez spécifier le champs racine.', 'ok', {
         duration: 5000
@@ -157,9 +164,13 @@ export class WordEditorComponent implements OnInit, OnDestroy {
           conjugaisonPast: conjugaisonPast
         })
       );
-      this._snackBar.open('Génération de la conjugaison au passé effectué.', 'ok', {
-        duration: 5000
-      });
+      this._snackBar.open(
+        'Génération de la conjugaison au passé effectué.',
+        'ok',
+        {
+          duration: 5000
+        }
+      );
     } else {
       this._snackBar.open('Veuillez spécifier le champs racine.', 'ok', {
         duration: 5000
@@ -177,9 +188,13 @@ export class WordEditorComponent implements OnInit, OnDestroy {
           conjugaisonFuture: conjugaisonFuture
         })
       );
-      this._snackBar.open('Génération de la conjugaison au futur effectué.', 'ok', {
-        duration: 5000
-      });
+      this._snackBar.open(
+        'Génération de la conjugaison au futur effectué.',
+        'ok',
+        {
+          duration: 5000
+        }
+      );
     } else {
       this._snackBar.open('Veuillez spécifier le champs racine.', 'ok', {
         duration: 5000

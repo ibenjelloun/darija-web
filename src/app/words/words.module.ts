@@ -13,10 +13,26 @@ import { ConjugaisonService } from './services/conjugaison.service';
 import { HistoryService } from './services/history.service';
 import { HistoryComponent } from './history/history.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { WordRankComponent } from './word-rank/word-rank.component';
 
 @NgModule({
-  imports: [CommonModule, MaterialModule, WordsRoutingModule, FormsModule, ReactiveFormsModule, TranslateModule],
-  declarations: [WordsComponent, WordsListComponent, WordEditorComponent, WordExamplesComponent, ConjugaisonComponent, HistoryComponent],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    WordsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule
+  ],
+  declarations: [
+    WordsComponent,
+    WordsListComponent,
+    WordEditorComponent,
+    WordExamplesComponent,
+    ConjugaisonComponent,
+    HistoryComponent,
+    WordRankComponent
+  ],
   exports: [WordsComponent],
   providers: [WordsService, ConjugaisonService, HistoryService]
 })

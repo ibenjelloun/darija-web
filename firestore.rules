@@ -9,5 +9,10 @@ service cloud.firestore {
     match /users/{user} {
      allow read: if true;
     }
+    match /words/{word}/votes/{vote} {
+     allow read: if true;
+     allow create: if vote == request.auth.uid;
+     allow update: if vote == request.auth.uid;
+    }
   }
 }

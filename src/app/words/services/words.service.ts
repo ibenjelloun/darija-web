@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Word } from '../model/word';
+import { Word, Vote } from '../model/word';
 import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { map } from 'rxjs/operators/map';
@@ -45,16 +45,17 @@ export class WordsService implements OnDestroy {
     const localSubject$ = new Subject<string>();
     const words$ = localSubject$.switchMap(search =>
       of(
-        this._words ?
         this._words
-          .filter(
-            word =>
-             word.french &&
-              word.darija &&
-              (word.french.toLowerCase().includes(search.toLowerCase()) ||
-                word.darija.toLowerCase().includes(search.toLowerCase()))
-          )
-          .slice(0, 5) : []
+          ? this._words
+              .filter(
+                word =>
+                  word.french &&
+                  word.darija &&
+                  (word.french.toLowerCase().includes(search.toLowerCase()) ||
+                    word.darija.toLowerCase().includes(search.toLowerCase()))
+              )
+              .slice(0, 5)
+          : []
       )
     );
     return { localSubject$: localSubject$, words$: words$ };
@@ -87,7 +88,7 @@ export class WordsService implements OnDestroy {
         .collection<Word>('words')
         .doc<Word>(id)
         .ref.get()
-    ).pipe(map(doc => <Word>(doc.data())));
+    ).pipe(map(doc => <Word>doc.data()));
   }
 
   public add(word: Word): Observable<string> {
@@ -114,6 +115,36 @@ export class WordsService implements OnDestroy {
     const word = a.payload.doc.data() as Word;
     word.id = a.payload.doc.id;
     return word;
+  }
+
+  actionToVote = a => {
+    const vote = a.payload.doc.data() as Vote;
+    vote.userId = a.payload.doc.id;
+    return vote;
+  }
+
+  getVotes(id: string): Observable<Vote[]> {
+    return this.afs
+      .collection<Vote>('words/' + id + '/votes')
+      .snapshotChanges()
+      .pipe(map(actions => actions.map(this.actionToVote)));
+  }
+
+  voteUp(id: string): Observable<boolean> {
+    return this.vote(id, 'up');
+  }
+
+  voteDown(id: string) {
+    return this.vote(id, 'down');
+  }
+
+  private vote(id: string, vote: string): Observable<boolean> {
+    return Observable.fromPromise(
+      this.afs
+        .collection<Vote>('words/' + id + '/votes')
+        .doc(this._user.uid)
+        .set({ vote: vote })
+    ).pipe(map(() => true));
   }
 
   ngOnDestroy() {

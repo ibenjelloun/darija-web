@@ -36,10 +36,16 @@ export class SamplePhrase {
 export enum WordType {
     VERB = 'VERB',
     ADJECTIVE = 'ADJECTIVE',
-    NOUN = 'NOUN'
+    NOUN = 'NOUN',
+    EXPRESSION = 'EXPRESSION'
 }
 
 export class WordExample {
   french: string;
   darija: string;
+}
+
+export class Vote {
+  userId: string;
+  vote: string;
 }
