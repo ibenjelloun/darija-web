@@ -21,7 +21,9 @@ export class WordRankComponent {
   @Input()
   set votes(votes: Vote[]) {
     this._votes = votes;
-    this.userVote = votes ? votes.find(_ => _.userId === this.userId) : undefined;
+    this.userVote = votes
+      ? votes.find(_ => _.userId === this.userId)
+      : undefined;
     this.rank = this.computeWordRank(votes);
   }
 
@@ -45,10 +47,18 @@ export class WordRankComponent {
   }
 
   voteUp() {
-    this._wordsService.voteUp(this.wordId);
+    if (this.userVote  && this.userVote.vote === 'up') {
+      this._wordsService.voteCancel(this.wordId);
+    } else {
+      this._wordsService.voteUp(this.wordId);
+    }
   }
 
   voteDown() {
-    this._wordsService.voteDown(this.wordId);
+    if (this.userVote  && this.userVote.vote === 'down') {
+      this._wordsService.voteCancel(this.wordId);
+    } else {
+      this._wordsService.voteDown(this.wordId);
+    }
   }
 }

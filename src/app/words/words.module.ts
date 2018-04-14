@@ -14,6 +14,7 @@ import { HistoryService } from './services/history.service';
 import { HistoryComponent } from './history/history.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { WordRankComponent } from './word-rank/word-rank.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { WordRankComponent } from './word-rank/word-rank.component';
     WordsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    SharedModule
   ],
   declarations: [
     WordsComponent,

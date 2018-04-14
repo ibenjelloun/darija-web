@@ -2,17 +2,20 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /words/{word} {
      allow read: if true;
-     allow create: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.rank > 49;
-     allow update: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.rank > 499;
-     allow delete: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.rank > 1999;
+     allow create: if rankGreaterThan(49);
+     allow update: if rankGreaterThan(199);
+     allow delete: if rankGreaterThan(1999);
     }
     match /users/{user} {
      allow read: if true;
     }
     match /words/{word}/votes/{vote} {
      allow read: if true;
-     allow create: if vote == request.auth.uid;
-     allow update: if vote == request.auth.uid;
+     allow create: if vote == request.auth.uid && rankGreaterThan(499);
+     allow update: if vote == request.auth.uid && rankGreaterThan(499);
+    }
+    function rankGreaterThan(value) {
+    	return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.rank > value;
     }
   }
 }

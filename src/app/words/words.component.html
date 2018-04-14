@@ -3,6 +3,7 @@
     <input matInput placeholder="Recherche" [formControl]="searchField">
   </mat-form-field>
   <dar-words-list [words$]="words$"></dar-words-list>
+  <mat-card *ngIf="!(isDataAvailable$ | async)">Chargement des mots...</mat-card>
 </div>
 <span class="add">
   <button mat-fab>

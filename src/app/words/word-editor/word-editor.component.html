@@ -66,7 +66,7 @@
     </mat-expansion-panel>
   </mat-accordion>
 
-  <mat-card class="votes">
+  <mat-card *darIfAuth="499" class="votes">
     <dar-word-rank *ngIf="!creation" [votes]="votes$ | async" [wordId]="id" [userId]="(user$ | async)?.uid"></dar-word-rank>
   </mat-card>
 
@@ -88,9 +88,15 @@
     <button *ngIf="wordForm.pristine" mat-raised-button [routerLink]="['/words']">Retour</button>
     <button *ngIf="wordForm.dirty" mat-raised-button [routerLink]="['/words']">Annuler</button>
     <ng-container *ngIf="user$ | async">
-      <button *ngIf="!creation" mat-raised-button color="primary" (click)="update()">Enregister</button>
-      <button *ngIf="!creation" mat-raised-button color="primary" (click)="delete()">Supprimer</button>
-      <button *ngIf="creation" mat-raised-button color="primary" (click)="create()">Ajouter</button>
+      <ng-container *darIfAuth="199">
+        <button *ngIf="!creation" mat-raised-button color="primary" (click)="update()">Enregister</button>
+      </ng-container>
+      <ng-container *darIfAuth="1999">
+        <button *ngIf="!creation" mat-raised-button color="primary" (click)="delete()">Supprimer</button>
+      </ng-container>
+      <ng-container *darIfAuth="49">
+        <button *ngIf="creation" mat-raised-button color="primary" (click)="create()">Ajouter</button>
+      </ng-container>
     </ng-container>
   </mat-card>
 </div>

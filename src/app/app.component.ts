@@ -15,6 +15,7 @@ import { AuthService } from './core/services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
+import { ProfilService } from './profil/services/profil.service';
 
 @Component({
   selector: 'dar-root',
@@ -40,7 +41,8 @@ export class AppComponent implements OnInit, OnDestroy {
     sanitizer: DomSanitizer,
     private _authService: AuthService,
     private _router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private _profilService: ProfilService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();

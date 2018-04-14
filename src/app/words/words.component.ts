@@ -21,6 +21,7 @@ export class WordsComponent {
 
   words$ = new Observable<Word[]>();
   wordsSubject$: Subject<string>;
+  isDataAvailable$:  Observable<boolean>;
   searchField: FormControl;
 
   constructor(
@@ -31,6 +32,7 @@ export class WordsComponent {
     private _cookieService: CookieService
   ) {
     this.searchField = new FormControl('');
+    this.isDataAvailable$ = this._wordsService.isDataAvailable();
     const dlsh = this._wordsService.getDynamicLocalSearchHandler();
     this.words$ = dlsh.words$;
     this.wordsSubject$ = dlsh.localSubject$;

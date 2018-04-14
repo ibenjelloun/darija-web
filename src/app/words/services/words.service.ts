@@ -6,10 +6,11 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import { map } from 'rxjs/operators/map';
 import { Subject } from 'rxjs/Subject';
 import { firestore, User } from 'firebase/app';
-import { share } from 'rxjs/operators';
+import { share, switchMap, tap, filter } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthService } from '../../core/services/auth.service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class WordsService implements OnDestroy {
@@ -18,17 +19,25 @@ export class WordsService implements OnDestroy {
   private _user: User;
   private _wordsSubscription: Subscription;
   private _userSubscription: Subscription;
+  private isDataAvailableSubject = new BehaviorSubject<boolean>(false);
 
   constructor(
     private afs: AngularFirestore,
     private _authService: AuthService
   ) {
-    this._wordsSubscription = this.getAllWords().subscribe(
-      words => (this._words = words)
-    );
+    this._wordsSubscription = this.getAllWords()
+      .pipe(tap(() => this.isDataAvailableSubject.next(false)))
+      .subscribe(words => {
+        this._words = words;
+        this.isDataAvailableSubject.next(true);
+      });
     this._userSubscription = this._authService
       .getUser()
       .subscribe(user => (this._user = user));
+  }
+
+  public isDataAvailable(): Observable<boolean> {
+    return this.isDataAvailableSubject;
   }
 
   public getAllWords(): Observable<Word[]> {
@@ -43,19 +52,22 @@ export class WordsService implements OnDestroy {
 
   public getDynamicLocalSearchHandler(): { localSubject$; words$ } {
     const localSubject$ = new Subject<string>();
-    const words$ = localSubject$.switchMap(search =>
-      of(
-        this._words
-          ? this._words
-              .filter(
-                word =>
-                  word.french &&
-                  word.darija &&
-                  (word.french.toLowerCase().includes(search.toLowerCase()) ||
-                    word.darija.toLowerCase().includes(search.toLowerCase()))
-              )
-              .slice(0, 5)
-          : []
+    const words$ = localSubject$.pipe(
+      switchMap(search =>
+        this.isDataAvailableSubject.pipe(filter(_ => _),
+        map(() =>
+          this._words
+            ? this._words
+                .filter(
+                  word =>
+                    word.french &&
+                    word.darija &&
+                    (word.french.toLowerCase().includes(search.toLowerCase()) ||
+                      word.darija.toLowerCase().includes(search.toLowerCase()))
+                )
+                .slice(0, 5)
+            : []
+        ))
       )
     );
     return { localSubject$: localSubject$, words$: words$ };
@@ -63,21 +75,23 @@ export class WordsService implements OnDestroy {
 
   public getDynamicSearchHandler(): { fireSubject$; words$ } {
     const fireSubject$ = new Subject<string>();
-    const words$ = fireSubject$.switchMap(search =>
-      combineLatest(
-        this.afs
-          .collection<any>('words', ref =>
-            ref.where('french', '==', search).limit(5)
-          )
-          .snapshotChanges()
-          .pipe(map(actions => actions.map(this.actionToWord))),
-        this.afs
-          .collection<Word>('words', ref =>
-            ref.where('darija', '==', search).limit(5)
-          )
-          .snapshotChanges()
-          .pipe(map(actions => actions.map(this.actionToWord)))
-      ).pipe(map(a => [...a[0], ...a[1]]))
+    const words$ = fireSubject$.pipe(
+      switchMap(search =>
+        combineLatest(
+          this.afs
+            .collection<any>('words', ref =>
+              ref.where('french', '==', search).limit(5)
+            )
+            .snapshotChanges()
+            .pipe(map(actions => actions.map(this.actionToWord))),
+          this.afs
+            .collection<Word>('words', ref =>
+              ref.where('darija', '==', search).limit(5)
+            )
+            .snapshotChanges()
+            .pipe(map(actions => actions.map(this.actionToWord)))
+        ).pipe(map(a => [...a[0], ...a[1]]))
+      )
     );
     return { fireSubject$: fireSubject$, words$: words$ };
   }
@@ -136,6 +150,10 @@ export class WordsService implements OnDestroy {
 
   voteDown(id: string) {
     return this.vote(id, 'down');
+  }
+
+  voteCancel(id: string) {
+    return this.vote(id, '');
   }
 
   private vote(id: string, vote: string): Observable<boolean> {
