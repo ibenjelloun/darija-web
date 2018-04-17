@@ -75,10 +75,10 @@
       Mot créé lors de l'initialisation
     </ng-container>
     <ng-container *ngIf="wordForm.value.createdBy">
-      Mot créé par {{ wordForm.value.createdBy }}
+      Mot créé par {{ wordForm.value.createdBy?.username }}
     </ng-container>
     <ng-container *ngIf="wordForm.value.updatedBy">
-      <br>Dernière modification par {{ wordForm.value.updatedBy }}
+      <br>Dernière modification par {{ wordForm.value.updatedBy?.username }}
     </ng-container>
   </mat-card>
 

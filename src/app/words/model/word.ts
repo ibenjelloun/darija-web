@@ -10,8 +10,8 @@ export class Word {
     conjugaisonPresent: Conjugation;
     conjugaisonPast: Conjugation;
     conjugaisonFuture: Conjugation;
-    createdBy: string;
-    updatedBy: string;
+    createdBy: User;
+    updatedBy: User;
     lastUpdate: Date;
 }
 
@@ -48,4 +48,9 @@ export class WordExample {
 export class Vote {
   userId: string;
   vote: string;
+}
+
+export class User {
+  id: string;
+  username: string;
 }

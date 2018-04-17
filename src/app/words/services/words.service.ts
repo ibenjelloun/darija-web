@@ -106,14 +106,14 @@ export class WordsService implements OnDestroy {
   }
 
   public add(word: Word): Observable<string> {
-    word.createdBy = this._user.displayName;
+    word.createdBy = { id: this._user.uid, username: this._user.displayName };
     return Observable.fromPromise(
       this.afs.collection<Word>('words').add(word)
     ).pipe(map(doc => doc.id));
   }
 
   public update(id: string, word: Word): Observable<boolean> {
-    word.updatedBy = this._user.displayName;
+    word.updatedBy = { id: this._user.uid, username: this._user.displayName };
     return Observable.fromPromise(
       this.afs.firestore.doc('words/' + id).update(word)
     ).pipe(map(() => true));
