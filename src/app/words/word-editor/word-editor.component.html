@@ -71,12 +71,12 @@
   </mat-accordion>
 
   <ng-container *ngIf="!creation">
-    <mat-card *darIfAuth="499" class="votes">
+    <mat-card *darIfAuth="499" class="non-editable">
       <dar-word-rank [votes]="votes$ | async" [wordId]="id" [userId]="(user$ | async)?.uid"></dar-word-rank>
     </mat-card>
   </ng-container>
 
-  <mat-card *ngIf="!creation">
+  <mat-card *ngIf="!creation" class="non-editable">
     <ng-container *ngIf="!wordForm.value.createdBy">
       Mot créé lors de l'initialisation
     </ng-container>

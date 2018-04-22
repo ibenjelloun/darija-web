@@ -25,9 +25,11 @@
   height: 20vh;
 }
 
-.votes {
+.non-editable {
   padding: 2px;
-  margin: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
 mat-radio-group {
