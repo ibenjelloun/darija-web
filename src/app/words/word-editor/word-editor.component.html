@@ -78,13 +78,13 @@
 
   <mat-card *ngIf="!creation" class="non-editable">
     <ng-container *ngIf="!wordForm.value.createdBy">
-      Mot créé lors de l'initialisation
+      Créé lors de l'initialisation
     </ng-container>
-    <ng-container *ngIf="wordForm.value.createdBy">
-      Mot créé par {{ wordForm.value.createdBy?.username }}
+    <ng-container *ngIf="wordForm.value.createdBy?.username">
+      Créé par <button mat-button color="primary">{{ wordForm.value.createdBy?.username }}</button>
     </ng-container>
-    <ng-container *ngIf="wordForm.value.updatedBy">
-      <br>Dernière modification par {{ wordForm.value.updatedBy?.username }}
+    <ng-container *ngIf="wordForm.value.updatedBy?.username">
+      <br>Modifié par <button mat-button color="primary">{{ wordForm.value.updatedBy?.username }}</button>
     </ng-container>
   </mat-card>
 
