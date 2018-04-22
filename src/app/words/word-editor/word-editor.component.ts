@@ -40,6 +40,7 @@ export class WordEditorComponent implements OnInit, OnDestroy {
       feminin: '',
       plural: '',
       examples: [],
+      gender: [''],
       type: WordType.NOUN,
       racine: '',
       conjugaisonPresent: '',

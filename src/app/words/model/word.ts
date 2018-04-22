@@ -7,6 +7,7 @@ export class Word {
     examples: SamplePhrase[];
     type: WordType;
     racine: string;
+    gender: string;
     conjugaisonPresent: Conjugation;
     conjugaisonPast: Conjugation;
     conjugaisonFuture: Conjugation;
