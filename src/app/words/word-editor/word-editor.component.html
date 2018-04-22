@@ -66,11 +66,13 @@
     </mat-expansion-panel>
   </mat-accordion>
 
-  <mat-card *darIfAuth="499" class="votes">
-    <dar-word-rank *ngIf="!creation" [votes]="votes$ | async" [wordId]="id" [userId]="(user$ | async)?.uid"></dar-word-rank>
-  </mat-card>
+  <ng-container *ngIf="!creation">
+    <mat-card *darIfAuth="499" class="votes">
+      <dar-word-rank [votes]="votes$ | async" [wordId]="id" [userId]="(user$ | async)?.uid"></dar-word-rank>
+    </mat-card>
+  </ng-container>
 
-  <mat-card>
+  <mat-card *ngIf="!creation">
     <ng-container *ngIf="!wordForm.value.createdBy">
       Mot créé lors de l'initialisation
     </ng-container>
