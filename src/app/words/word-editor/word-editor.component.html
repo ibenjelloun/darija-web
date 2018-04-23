@@ -9,6 +9,11 @@
     <mat-form-field>
       <input matInput formControlName="darija" placeholder="Darija">
     </mat-form-field>
+    <mat-select formControlName="type" placeholder="type">
+      <mat-option *ngFor="let type of wordTypes" [value]="type">
+        {{ type | translate }}
+      </mat-option>
+    </mat-select>
     <mat-radio-group *ngIf="wordForm.value.type === 'NOUN'" formControlName="gender">
       <mat-radio-button value="M">Masculin</mat-radio-button>
       <mat-radio-button value="F">Feminin</mat-radio-button>
@@ -19,11 +24,6 @@
     <mat-form-field *ngIf="wordForm.value.type !== 'VERB'">
       <input matInput formControlName="plural" placeholder="Pluriel">
     </mat-form-field>
-    <mat-select formControlName="type" placeholder="type">
-      <mat-option *ngFor="let type of wordTypes" [value]="type">
-        {{ type | translate }}
-      </mat-option>
-    </mat-select>
     <mat-form-field *ngIf="wordForm.value.type === 'VERB'">
       <input matInput formControlName="racine" placeholder="Racine du verbe">
     </mat-form-field>
