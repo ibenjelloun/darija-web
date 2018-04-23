@@ -9,11 +9,11 @@
     <mat-form-field>
       <input matInput formControlName="darija" placeholder="Darija">
     </mat-form-field>
-    <mat-radio-group *ngIf="wordForm.value.type !== 'VERB'" formControlName="gender">
+    <mat-radio-group *ngIf="wordForm.value.type === 'NOUN'" formControlName="gender">
       <mat-radio-button value="M">Masculin</mat-radio-button>
       <mat-radio-button value="F">Feminin</mat-radio-button>
     </mat-radio-group>
-    <mat-form-field *ngIf="wordForm.value.type !== 'VERB'">
+    <mat-form-field *ngIf="wordForm.value.type === 'NOUN' || wordForm.value.type === 'ADJECTIVE'">
       <input matInput formControlName="feminin" placeholder="Féminin (si applicable)">
     </mat-form-field>
     <mat-form-field *ngIf="wordForm.value.type !== 'VERB'">
