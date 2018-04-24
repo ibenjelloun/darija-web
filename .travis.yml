@@ -11,7 +11,7 @@ before_script:
 script:
 - yarn build
 - yarn sw
-- cd functions/ && yarn build
+- cd functions/ && yarn && yarn build
 deploy:
   provider: firebase
   token:
