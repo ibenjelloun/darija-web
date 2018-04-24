@@ -7,7 +7,7 @@ branches:
 before_script:
 - yarn global add firebase-tools
 - yarn global add @angular/cli
-- yarn global add typescript
+- npm install typescript -g
 script:
 - yarn build
 - yarn sw
