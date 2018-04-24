@@ -1,23 +1,21 @@
 language: node_js
 node_js:
-  - "8.9"
-
+- '8.9'
 branches:
   only:
-    - master
-
+  - master
 before_script:
-  - yarn global add firebase-tools
-  - yarn global add @angular/cli
-
+- yarn global add firebase-tools
+- yarn global add @angular/cli
 script:
-  - yarn build
-  - yarn sw
-
-after_success:
-  - firebase deploy --token "$FIREBASE_TOKEN"
-
+- yarn build
+- yarn sw
+deploy:
+  provider: firebase
+  token:
+    secure: s4vBRODMZY2nc7Q3xLt3NTbNiIDY7L4RMQWfZMViCMEySGBwT63HFyqaRf5hvj7fafPvhYX+/ubVwJHuuDnpEgKAMwWy4TT0QtF6E46drJ8GN4yU/6L1G3Ps6HlO2drnrvxK5DRt0SvR/ghwKuik4yVXBgbFc9MYJ4D5GJUBBTyVLXFeAV3YKKOAHt+OOzGpudeIR9+g59FvFR/xQyyrk8NNZfW7gNf3OWatezZs4ANZIhlPVUFE4p15xzB7mwnb/A/3kTTXHw1i6xpOEeumjyhnFmjy1d3XPDjeo+C+XCS6tIJHOuRi99VHP8PeLsIivwq6M/mVdjzEyJeu9vujQUqJWJIva6+hU8QBg4NHHvAuWzYZK9dtDM9dpbIKSLs1KbOSX2jIcOZXIDG6NH6RVHbyrs7sKbn6umOz5fBlozYbwlSWCJmOp9baOOzaIlBwzBEBRSd1N/xod4M9Wx2Ra9KWpVG8q09Qhfs2NtbG2eV3QZ9m/l2y6NWrmlNlWhM5pbTZnXUyuqKVSiBS8L/xhmtdUYtEtgksjUFtuLqV2Oug8JueaxV7u5xIdyDAn4obGvYrZljcCuWl5LPH7mpXTGWyrDeHkmteWS86UpfBT3YQqX+CXIgm6gbS2Mn+rqc8/KVUF7J7n3FYcd8Gsfl2zp1PBAPbFuS68vJVmBSIftk=
 notifications:
   email:
     on_failure: change
     on_success: change
+
