@@ -10,7 +10,6 @@ before_script:
 script:
 - yarn build
 - yarn sw
-- cd functions/ && yarn build
 after_success:
   - yarn deploy --token "$FIREBASE_TOKEN"
 notifications:
