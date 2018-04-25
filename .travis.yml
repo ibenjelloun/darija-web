@@ -10,7 +10,9 @@ before_script:
 script:
 - yarn build
 - yarn sw
-- yarn deploy --token "$FIREBASE_TOKEN"
+- yarn build functions/
+after_success:
+  - yarn deploy --token "$FIREBASE_TOKEN"
 notifications:
   email:
     on_failure: change
