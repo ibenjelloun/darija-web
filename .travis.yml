@@ -12,7 +12,6 @@ script:
 - yarn sw
 after_success:
   - yarn deploy --token "$FIREBASE_TOKEN"
-  - cat /home/travis/.npm/_logs/*-debug.log
 notifications:
   email:
     on_failure: change

@@ -22,7 +22,7 @@
   },
   "functions": {
     "predeploy": [
-      "yarn build functions"
+      "cd functions/ && yarn build"
     ]
   }
 }
