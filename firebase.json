@@ -18,6 +18,7 @@
   },
   "functions": {
     "predeploy": [
+      "npm --prefix \"./functions\" install",
       "npm --prefix \"./functions\" run build"
     ]
   }
