@@ -7,15 +7,11 @@ branches:
 before_script:
 - yarn global add firebase-tools
 - yarn global add @angular/cli
-- npm install typescript -g
 script:
 - yarn build
 - yarn sw
-- cd functions/ && yarn && yarn build
-deploy:
-  provider: firebase
-  token:
-    secure: rWnTo/Ih/APK9l8UpWwzIDKlz6FfJDEWqXC7Ab8uPH8jE6unU1wa0x6VFk8v4qI3NYiInV77VNhdNG/EiS27SlF9TPRI6K13mPIEowe6gfVFIz3Ipv51VbqlnOQVBoObJlgNNB+H9frUWfiVxBnfcJ9Lk1taSM3zqFRRwsZm437ZqLwf4qkB7+UveYitLiFAXTW//eBQDpDSm1vpkX/wFvW/ePEghkovX0MleA7CrkbfCCXcHBGoOkNo1OmJzUAnJ+SZIDBQoM7906E/ZvfPEZDrBPfnUbXhykoz9Lz0BdE4kS7/ZkLmgYxiFCQhhtP6Yqao54J8PQ0QE/i7I5Vmvv+roqiCJcMr0aSMC1gIz8dcUzteSQp8BgUjcQnd9KmysZMjph41Cp+EEN2D6ZskXRk0RjkbXbZ3Su2eaagdgcOUjmkSJKsN/sj08/fYSfDxkE4rcldnzSOUwSdrZoV4kNZIB8hRVxS6fzyA62ks2lnRLb0s4P2Nk72wqhV1ms65f/lFADh15bkqA3gmJUHeeGGAqatrEZrD9epabcl4K4cH2VrzTCvF01LlkMm1+B2X52Jzl+HN8nCcb43G7d5CsHLDt/wwsAF5BwumOwETC047RvdyY3qWAdE9vJrYDzfiupYeKtODT5Ik6ovleRAKEQCa+dl6u7gRFfunoTDXfPY=
+after_success:
+  - yarn deploy --token "$FIREBASE_TOKEN"
 notifications:
   email:
     on_failure: change
