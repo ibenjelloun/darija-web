@@ -17,6 +17,7 @@ export class ProfilComponent implements OnInit, OnDestroy {
   constructor(private _profileService: ProfilService) {}
 
   ngOnInit() {
+    this._profileService.computeRank().subscribe();
     this.user$ = this._profileService.getUser();
     this.sub = this.user$.subscribe(user => this.profil$ = this._profileService.getProfil(user.uid));
   }
