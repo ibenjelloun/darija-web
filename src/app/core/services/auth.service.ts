@@ -6,7 +6,6 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class AuthService implements OnDestroy {
@@ -36,10 +35,6 @@ export class AuthService implements OnDestroy {
   logout() {
     this.firebaseAuth.auth.signOut();
     this._router.navigate(['']);
-  }
-
-  getToken(): Observable<any> {
-    return firebase.auth().currentUser ? Observable.fromPromise(firebase.auth().currentUser.getIdToken()) : of(undefined);
   }
 
 
