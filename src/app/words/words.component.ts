@@ -31,8 +31,7 @@ export class WordsComponent implements OnInit {
     private _router: Router,
     private _cookieService: CookieService
   ) {
-    const searchTerm = this._cookieService.get('search_term');
-    this.searchField = new FormControl(searchTerm);
+    this.searchField = new FormControl('');
     this.isDataAvailable$ = this._wordsService.isDataAvailable();
     const dlsh = this._wordsService.getDynamicLocalSearchHandler();
     this.words$ = dlsh.words$;
@@ -52,7 +51,6 @@ export class WordsComponent implements OnInit {
         ? this.searchField.value
         : null;
     this.wordsSubject$.next(term);
-    this._cookieService.set('search_term', term);
   }
 
   addWord() {
