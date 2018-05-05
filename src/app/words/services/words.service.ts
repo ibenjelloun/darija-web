@@ -45,7 +45,7 @@ export class WordsService implements OnDestroy {
       this._allWords = this.afs
         .collection<any>('words')
         .snapshotChanges()
-        .pipe(map(actions => actions.map(this.actionToWord)), share());
+        .pipe(map(actions => actions.map(this.actionToWord).sort((a, b) => a.french.localeCompare(b.french)), share()));
     }
     return this._allWords;
   }
@@ -57,15 +57,7 @@ export class WordsService implements OnDestroy {
         this.isDataAvailableSubject.pipe(filter(_ => _),
         map(() =>
           this._words
-            ? this._words
-                .filter(
-                  word =>
-                    word.french &&
-                    word.darija &&
-                    (word.french.toLowerCase().includes(search.toLowerCase()) ||
-                      word.darija.toLowerCase().includes(search.toLowerCase()))
-                )
-                .slice(0, 5)
+            ? this.getSearchResult(search)
             : []
         ))
       )
@@ -163,6 +155,17 @@ export class WordsService implements OnDestroy {
         .doc(this._user.uid)
         .set({ vote: vote })
     ).pipe(map(() => true));
+  }
+
+  private getSearchResult(search) {
+    return search ? this._words
+    .filter(
+      word =>
+        word.french &&
+        word.darija &&
+        (word.french.toLowerCase().includes(search.toLowerCase()) ||
+          word.darija.toLowerCase().includes(search.toLowerCase()))
+    ) : this._words;
   }
 
   ngOnDestroy() {

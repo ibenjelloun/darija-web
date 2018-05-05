@@ -10,7 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "sw": "sw-precache --root=dist --config=sw-precache-config.js",
-    "deploy": "firebase deploy"
+    "deploy": "firebase deploy",
+    "deploy-functions": "firebase deploy --only functions"
   },
   "private": true,
   "dependencies": {

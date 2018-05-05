@@ -50,7 +50,7 @@ export class WordsComponent implements OnInit {
     const term =
       this.searchField.value !== ''
         ? this.searchField.value
-        : this.getRandomSearch();
+        : null;
     this.wordsSubject$.next(term);
     this._cookieService.set('search_term', term);
   }

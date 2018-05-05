@@ -22,4 +22,5 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/words/update/', row.id]"></mat-row>
   </mat-table>
+  <mat-paginator [pageSizeOptions]="[10]" [hidePageSize]="true"></mat-paginator>
 </div>

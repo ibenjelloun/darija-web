@@ -2,7 +2,7 @@
   <mat-form-field>
     <input matInput placeholder="Recherche" [formControl]="searchField" (keyUp.enter)="doSearch()">
   </mat-form-field>
-  <dar-words-list [words$]="words$"></dar-words-list>
+  <dar-words-list [words]="words$ | async"></dar-words-list>
   <mat-card *ngIf="!(isDataAvailable$ | async)">Chargement des mots...</mat-card>
 </div>
 <span class="add">
