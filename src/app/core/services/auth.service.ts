@@ -3,9 +3,8 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class AuthService implements OnDestroy {

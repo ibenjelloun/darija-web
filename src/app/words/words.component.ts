@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 import { Word } from './model/word';
 import { FormControl } from '@angular/forms';
-import { Subject } from 'rxjs/Subject';
+import { Subject, Observable } from 'rxjs';
 import { WordsService } from './services/words.service';
 import { AuthService } from '../core/services/auth.service';
 import { MatSnackBar } from '@angular/material';

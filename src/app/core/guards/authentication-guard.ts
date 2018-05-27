@@ -1,5 +1,5 @@
 import { CanActivate, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { User } from 'firebase/app';
 import { map, first } from 'rxjs/operators';

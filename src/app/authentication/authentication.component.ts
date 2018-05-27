@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { User } from '@firebase/auth-types';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators/first';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'dar-authentication',

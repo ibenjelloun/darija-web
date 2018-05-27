@@ -11,17 +11,15 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AuthenticationModule } from './authentication/authentication.module';
 import { AppRoutingModule } from './app-routing.module';
-import { WordsModule } from './words/words.module';
 import { MaterialModule } from './material/material.module';
 import { LayoutModule } from './layout/layout.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { ProfilModule } from './profil/profil.module';
 import 'hammerjs';
 import { HttpClientModule } from '@angular/common/http';
 import { HelpComponent } from './help/help.component';
+import { ProfilModule } from './profil/profil.module';
 
 export const firebaseConfig = environment.firebaseConfig;
 
@@ -41,13 +39,11 @@ export const firebaseConfig = environment.firebaseConfig;
     AngularFireDatabaseModule,
     CoreModule,
     SharedModule,
-    AppRoutingModule,
     MaterialModule,
     LayoutModule,
-    WordsModule,
-    AuthenticationModule,
     ProfilModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

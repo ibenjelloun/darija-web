@@ -1,16 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Word, Vote } from '../model/word';
-import { Observable } from 'rxjs/Observable';
-import { combineLatest } from 'rxjs/observable/combineLatest';
-import { map } from 'rxjs/operators/map';
-import { Subject } from 'rxjs/Subject';
 import { firestore, User } from 'firebase/app';
-import { share, switchMap, tap, filter } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
-import { Subscription } from 'rxjs/Subscription';
+import { map, share, switchMap, tap, filter } from 'rxjs/operators';
+import { Subject, Subscription, Observable, BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { of, from, combineLatest } from 'rxjs';
 
 @Injectable()
 export class WordsService implements OnDestroy {
@@ -89,7 +84,7 @@ export class WordsService implements OnDestroy {
   }
 
   public getWord(id: string): Observable<Word> {
-    return Observable.fromPromise(
+    return from(
       this.afs
         .collection<Word>('words')
         .doc<Word>(id)
@@ -99,20 +94,20 @@ export class WordsService implements OnDestroy {
 
   public add(word: Word): Observable<string> {
     word.createdBy = { id: this._user.uid, username: this._user.displayName };
-    return Observable.fromPromise(
+    return from(
       this.afs.collection<Word>('words').add(word)
     ).pipe(map(doc => doc.id));
   }
 
   public update(id: string, word: Word): Observable<boolean> {
     word.updatedBy = { id: this._user.uid, username: this._user.displayName };
-    return Observable.fromPromise(
+    return from(
       this.afs.firestore.doc('words/' + id).update(word)
     ).pipe(map(() => true));
   }
 
   public delete(id: string): Observable<boolean> {
-    return Observable.fromPromise(
+    return from(
       this.afs.firestore.doc('words/' + id).delete()
     ).pipe(map(() => true));
   }
@@ -149,7 +144,7 @@ export class WordsService implements OnDestroy {
   }
 
   private vote(id: string, vote: string): Observable<boolean> {
-    return Observable.fromPromise(
+    return from(
       this.afs
         .collection<Vote>('words/' + id + '/votes')
         .doc(this._user.uid)

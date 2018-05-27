@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Word } from '../model/word';
 import { WordsListDataSource } from './words-list-datasource';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';

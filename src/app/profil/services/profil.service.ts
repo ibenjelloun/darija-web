@@ -1,9 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { tap, first, switchMap, filter, map } from 'rxjs/operators';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from '@firebase/util';
 
 @Injectable()
