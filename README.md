@@ -1,6 +1,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cb723e5273bc46cab94a3a6176631d0d)](https://app.codacy.com/app/ibenjelloun/darija-web?utm_source=github.com&utm_medium=referral&utm_content=ibenjelloun/darija-web&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/ibenjelloun/darija-web.svg?branch=master)](https://travis-ci.org/ibenjelloun/darija-web)
 [![Known Vulnerabilities](https://snyk.io/test/github/ibenjelloun/darija-web/badge.svg?targetFile=package.json)](https://snyk.io/test/github/ibenjelloun/darija-web?targetFile=package.json)
+[![Dependencies](https://david-dm.org/ibenjelloun/darija-web.svg)](https://david-dm.org/ibenjelloun/darija-web?view=list)
 
 # DarijaWeb
 
