@@ -44,10 +44,7 @@ export class WordsComponent implements OnInit {
   }
 
   doSearch() {
-    const term =
-      this.searchField.value !== ''
-        ? this.searchField.value
-        : null;
+    const term = this.searchField.value !== '' ? this.searchField.value : null;
     this.wordsSubject$.next(term);
   }
 

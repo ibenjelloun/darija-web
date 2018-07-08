@@ -41,7 +41,6 @@ export const firebaseConfig = environment.firebaseConfig;
     SharedModule,
     MaterialModule,
     LayoutModule,
-    ProfilModule,
     HttpClientModule,
     AppRoutingModule
   ],

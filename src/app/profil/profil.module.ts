@@ -10,7 +10,6 @@ import { ProfilDetailsComponent } from './profil/profil-details.component';
   imports: [
     CommonModule, ProfilRoutingModule, MaterialModule
   ],
-  declarations: [ProfilDetailsComponent, ProfilComponent],
-  providers: [ProfilService]
+  declarations: [ProfilDetailsComponent, ProfilComponent]
 })
 export class ProfilModule { }
