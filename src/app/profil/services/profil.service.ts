@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { tap, first, switchMap, filter, map } from 'rxjs/operators';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from '@firebase/util';
 
 @Injectable({ providedIn: 'root' })

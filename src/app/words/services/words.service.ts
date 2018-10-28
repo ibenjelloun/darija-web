@@ -1,9 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Word, Vote } from '../model/word';
 import { firestore, User } from 'firebase/app';
 import { map, share, switchMap, tap, filter } from 'rxjs/operators';
-import { Subject, Subscription, Observable, BehaviorSubject } from 'rxjs';
+import { Subject, Subscription, Observable, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
 import { of, from, combineLatest } from 'rxjs';
 
@@ -40,13 +40,13 @@ export class WordsService implements OnDestroy {
       this._allWords = this.afs
         .collection<any>('words')
         .snapshotChanges()
-        .pipe(map(actions => actions.map(this.actionToWord).sort((a, b) => a.french.localeCompare(b.french)), share()));
+        .pipe(map((actions: []) => actions.map(this.actionToWord).sort((a, b) => a.french.localeCompare(b.french)), share()));
     }
     return this._allWords;
   }
 
   public getDynamicLocalSearchHandler(): { localSubject$; words$ } {
-    const localSubject$ = new Subject<string>();
+    const localSubject$ = new ReplaySubject<string>();
     const words$ = localSubject$.pipe(
       switchMap(search =>
         this.isDataAvailableSubject.pipe(filter(_ => _),
@@ -70,13 +70,13 @@ export class WordsService implements OnDestroy {
               ref.where('french', '==', search).limit(5)
             )
             .snapshotChanges()
-            .pipe(map(actions => actions.map(this.actionToWord))),
+            .pipe(map((actions: []) => actions.map(this.actionToWord))),
           this.afs
             .collection<Word>('words', ref =>
               ref.where('darija', '==', search).limit(5)
             )
             .snapshotChanges()
-            .pipe(map(actions => actions.map(this.actionToWord)))
+            .pipe(map((actions: []) => actions.map(this.actionToWord)))
         ).pipe(map(a => [...a[0], ...a[1]]))
       )
     );
@@ -89,14 +89,14 @@ export class WordsService implements OnDestroy {
         .collection<Word>('words')
         .doc<Word>(id)
         .ref.get()
-    ).pipe(map(doc => <Word>doc.data()));
+    ).pipe(map((doc: any) => <Word>doc.data()));
   }
 
   public add(word: Word): Observable<string> {
     word.createdBy = { id: this._user.uid, username: this._user.displayName };
     return from(
       this.afs.collection<Word>('words').add(word)
-    ).pipe(map(doc => doc.id));
+    ).pipe(map((doc: any) => doc.id));
   }
 
   public update(id: string, word: Word): Observable<boolean> {
@@ -128,7 +128,7 @@ export class WordsService implements OnDestroy {
     return this.afs
       .collection<Vote>('words/' + id + '/votes')
       .snapshotChanges()
-      .pipe(map(actions => actions.map(this.actionToVote)));
+      .pipe(map((actions: []) => actions.map(this.actionToVote)));
   }
 
   voteUp(id: string): Observable<boolean> {
