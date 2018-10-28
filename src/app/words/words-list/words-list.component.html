@@ -1,26 +1,13 @@
-<div class="mat-elevation-z8">
-  <mat-table #table [dataSource]="dataSource" matSort>
-
-    <!-- Fr Column -->
-    <ng-container matColumnDef="french">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Français </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.french}} </mat-cell>
-    </ng-container>
-
-    <!-- Ma Column -->
-    <ng-container matColumnDef="darija">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Darija </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.darija}} </mat-cell>
-    </ng-container>
-
-    <!-- Type Column -->
-    <ng-container matColumnDef="type">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.type | translate}} </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/words/update/', row.id]"></mat-row>
-  </mat-table>
-  <mat-paginator [pageSizeOptions]="[8]" [hidePageSize]="true"></mat-paginator>
-</div>
+<cdk-virtual-scroll-viewport *ngIf="words" itemSize="40" class="words-viewport">
+  <mat-card *cdkVirtualFor="let word of words" class="word-item" [routerLink]="['/words/update/', word.id]">
+    <div class="french">
+      {{ word.french }}
+    </div>
+    <div class="darija">
+      {{ word.darija }}
+    </div>
+    <div class="word-type">
+      {{ word.type | translate }}
+    </div>
+  </mat-card>
+</cdk-virtual-scroll-viewport>

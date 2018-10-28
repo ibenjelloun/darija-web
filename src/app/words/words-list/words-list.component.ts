@@ -1,12 +1,12 @@
-import { Component, Input, OnChanges, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, Input, OnChanges, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { Word } from '../model/word';
-import { WordsListDataSource } from './words-list-datasource';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'dar-words-list',
-  templateUrl: 'words-list.component.html'
+  templateUrl: 'words-list.component.html',
+  styleUrls: ['words-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WordsListComponent implements OnChanges {
   @Input() words: Word[];
